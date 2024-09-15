@@ -1,40 +1,15 @@
-import React, { useState } from "react";
-import { View, 
-        TextInput, 
-        StyleSheet, 
-        TouchableOpacity,
-        Alert,
-        Button } from "react-native";
-
+import React from "react";
+import { View, TextInput, StyleSheet, TouchableOpacity } from "react-native";
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 
-export const SearchBar = () => {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [locations, setLocations] = useState("");
+interface SearchBarProps {
+  searchQuery: string;
+  onSearchChange: (text: string) => void;
+  onSearchSubmit: () => void;
+  onClearSearch: () => void;
+}
 
-  const showAlert = () => {
-    Alert.alert(
-      "Location is empty",
-      "Write down your location.",
-      [
-        { text: "OK", onPress: () => console.log("OK Pressed") }
-      ],
-      { cancelable: false }
-    );
-  };
-
-  const handleSearch = () => {
-    if (!searchQuery) {
-        showAlert();
-    } 
-
-    if (searchQuery) {
-    setLocations(searchQuery);
-    }
-   }
-
-  console.log(searchQuery);
-
+export const SearchBar: React.FC<SearchBarProps> = ({ searchQuery, onSearchChange, onSearchSubmit, onClearSearch }) => {
   return (
     <View style={styles.container}>
       <View style={styles.searchContainer}>
@@ -42,10 +17,15 @@ export const SearchBar = () => {
           style={styles.searchBar}
           placeholder="Location"
           value={searchQuery}
-          onChangeText={(text) => setSearchQuery(text)}
+          onChangeText={(text) => {
+            onSearchChange(text);
+            if (text.length === 0) {
+              onClearSearch();
+            }
+          }}
         />
-        <TouchableOpacity onPress={handleSearch}>
-        <FontAwesome5 name="search-location" size={24} color="black" />
+        <TouchableOpacity onPress={onSearchSubmit}>
+          <FontAwesome5 name="search-location" size={24} color="black" />
         </TouchableOpacity>
       </View>
     </View>
@@ -74,5 +54,3 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
 });
-
-
