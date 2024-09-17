@@ -1,6 +1,6 @@
 import React from "react";
 import { View, TextInput, StyleSheet, TouchableOpacity } from "react-native";
-import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
+import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import { theme } from "../theme";
 
 interface SearchBarProps {
@@ -10,7 +10,12 @@ interface SearchBarProps {
   onClearSearch: () => void;
 }
 
-export const SearchBar: React.FC<SearchBarProps> = ({ searchQuery, onSearchChange, onSearchSubmit, onClearSearch }) => {
+export const SearchBar: React.FC<SearchBarProps> = ({
+  searchQuery,
+  onSearchChange,
+  onSearchSubmit,
+  onClearSearch,
+}) => {
   return (
     <View style={styles.container}>
       <View style={styles.searchContainer}>
@@ -26,7 +31,11 @@ export const SearchBar: React.FC<SearchBarProps> = ({ searchQuery, onSearchChang
           }}
         />
         <TouchableOpacity onPress={onSearchSubmit}>
-          <FontAwesome5 name="search-location" size={24} color={theme.colors.primary} />
+          <FontAwesome5
+            name="search-location"
+            size={24}
+            color={theme.colors.primary}
+          />
         </TouchableOpacity>
       </View>
     </View>
@@ -49,7 +58,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   searchBar: {
-    flex: 1, 
+    flex: 1,
     height: 40,
     paddingHorizontal: 10,
   },

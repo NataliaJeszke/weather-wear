@@ -1,29 +1,26 @@
-import React, { useState, useEffect } from 'react';
-import { StatusBar, StyleSheet, View, Alert, Text } from 'react-native';
-import { SearchBar } from '../components/SearchBar';
-import { ClothesDisplay } from '../components/ClothesDisplay';
+import React, { useState, useEffect } from "react";
+import { StatusBar, StyleSheet, View, Alert, Text } from "react-native";
+import { SearchBar } from "../components/SearchBar";
+import { ClothesDisplay } from "../components/ClothesDisplay";
 
-import { useApi } from '../hooks/useApi';
-import { useGeocode } from '../hooks/useGeocode';
+import { useApi } from "../hooks/useApi";
+import { useGeocode } from "../hooks/useGeocode";
 
-import LottieView from 'lottie-react-native';
+import LottieView from "lottie-react-native";
 
 export default function App() {
-  const [searchQuery, setSearchQuery] = useState<string>('');
+  const [searchQuery, setSearchQuery] = useState<string>("");
   const [temperature, setTemperature] = useState<number | null>(null);
-  
+
   const { fetchWeatherData, weatherData } = useApi();
   const { coordinates, fetchCoordinates } = useGeocode();
-
 
   const showAlert = () => {
     Alert.alert(
       "Location is empty",
       "Write down your location.",
-      [
-        { text: "OK", onPress: () => console.log("OK Pressed") }
-      ],
-      { cancelable: false }
+      [{ text: "OK", onPress: () => console.log("OK Pressed") }],
+      { cancelable: false },
     );
   };
 
@@ -40,9 +37,9 @@ export default function App() {
   };
 
   const handleClearSearch = () => {
-    setSearchQuery('');
+    setSearchQuery("");
     setTemperature(null);
-  }
+  };
 
   useEffect(() => {
     if (coordinates.latitude && coordinates.longitude) {
@@ -63,7 +60,7 @@ export default function App() {
       const times = data.hourly.time;
       const temperatures = data.hourly.temperature_2m;
       const now = new Date();
-      const currentTime = now.toISOString().slice(0, 13) + ':00';
+      const currentTime = now.toISOString().slice(0, 13) + ":00";
       const index = times.indexOf(currentTime);
 
       if (index !== -1) {
@@ -79,18 +76,23 @@ export default function App() {
   return (
     <View style={styles.container}>
       <View style={{ height: 200, width: 350 }}>
-        <SearchBar 
-          searchQuery={searchQuery} 
-          onSearchChange={setSearchQuery} 
+        <SearchBar
+          searchQuery={searchQuery}
+          onSearchChange={setSearchQuery}
           onSearchSubmit={handleSearch}
-          onClearSearch={handleClearSearch} 
+          onClearSearch={handleClearSearch}
         />
       </View>
       <View style={styles.weatherContainer}>
         {temperature !== null ? (
           <ClothesDisplay temperature={temperature} />
         ) : (
-          <LottieView style={{flex:1, height:200, width:200}} source={require('../assets/animation/animdog.json')} autoPlay loop />
+          <LottieView
+            style={{ flex: 1, height: 200, width: 200 }}
+            source={require("../assets/animation/animdog.json")}
+            autoPlay
+            loop
+          />
         )}
       </View>
       <StatusBar />
@@ -101,13 +103,13 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
   },
 
   weatherContainer: {
     flex: 1,
-    alignItems: 'center',
+    alignItems: "center",
   },
 });

@@ -1,8 +1,11 @@
-import { useState } from 'react';
-import axios from 'axios';
+import { useState } from "react";
+import axios from "axios";
 
 export const useGeocode = () => {
-  const [coordinates, setCoordinates] = useState<{ latitude: number | null, longitude: number | null }>({ latitude: null, longitude: null });
+  const [coordinates, setCoordinates] = useState<{
+    latitude: number | null;
+    longitude: number | null;
+  }>({ latitude: null, longitude: null });
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -11,23 +14,26 @@ export const useGeocode = () => {
     setError(null);
 
     try {
-      const response = await axios.get(`https://geocoding-api.open-meteo.com/v1/search`, {
-        params: {
-          name: place,
-          count: 1,
-          language: 'pl',
-          format: 'json'
-        }
-      });
+      const response = await axios.get(
+        `https://geocoding-api.open-meteo.com/v1/search`,
+        {
+          params: {
+            name: place,
+            count: 1,
+            language: "pl",
+            format: "json",
+          },
+        },
+      );
       const results = response.data.results;
       if (results && results.length > 0) {
         const { latitude, longitude } = results[0];
         setCoordinates({ latitude, longitude });
       } else {
-        setError('No results found');
+        setError("No results found");
       }
     } catch (err) {
-      setError('Error fetching coordinates');
+      setError("Error fetching coordinates");
     } finally {
       setLoading(false);
     }
@@ -37,6 +43,6 @@ export const useGeocode = () => {
     coordinates,
     fetchCoordinates,
     error,
-    loading
+    loading,
   };
 };
