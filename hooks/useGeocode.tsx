@@ -33,6 +33,11 @@ export const useGeocode = () => {
         setError("No results found");
       }
     } catch (err) {
+      if (axios.isAxiosError(err)) {
+        console.error("Axios error: ", err.response?.data);
+      } else {
+        console.error("Other error: ", err);
+      }
       setError("Error fetching coordinates");
     } finally {
       setLoading(false);

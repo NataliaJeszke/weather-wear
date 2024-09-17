@@ -31,6 +31,11 @@ export const useApi = () => {
 
       setWeatherData(response.data);
     } catch (err) {
+      if (axios.isAxiosError(err)) {
+        console.error("Axios error: ", err.response?.data);
+      } else {
+        console.error("Other error: ", err);
+      }
       setError("Failed to fetch weather data");
     } finally {
       setLoading(false);
