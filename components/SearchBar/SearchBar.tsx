@@ -1,7 +1,7 @@
 import React from "react";
 import { View, TextInput, StyleSheet, TouchableOpacity } from "react-native";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
-import { theme } from "../theme";
+import { theme } from "../../theme";
 
 interface SearchBarProps {
   searchQuery: string;

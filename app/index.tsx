@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { StatusBar, StyleSheet, View, Alert, Text } from "react-native";
-import { SearchBar } from "../components/SearchBar";
-import { ClothesDisplay } from "../components/ClothesDisplay";
+import { StatusBar, StyleSheet, View, Alert } from "react-native";
+import { SearchBar } from "../components/SearchBar/SearchBar";
+import { ClothesDisplay } from "../components/ClothesDisplay/ClothesDisplay";
 
 import { useApi } from "../hooks/useApi";
 import { useGeocode } from "../hooks/useGeocode";
@@ -88,7 +88,7 @@ export default function App() {
           <ClothesDisplay temperature={temperature} />
         ) : (
           <LottieView
-            style={{ flex: 1, height: 200, width: 200 }}
+            style={{ flex: 1, height: 300, width: 300 }}
             source={require("../assets/animation/animdog.json")}
             autoPlay
             loop
