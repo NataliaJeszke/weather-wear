@@ -1,3 +1,5 @@
+// eslint-disable-next-line import/no-unresolved
+import { WardrobeButton } from "@/components/WardrobeButton/WardrobeButton";
 import { View, Text, StyleSheet } from "react-native";
 
 export default function addClothes() {
@@ -6,6 +8,10 @@ export default function addClothes() {
       <Text style={styles.temperature}>
         Add Clothes to your virtual wardrobe
       </Text>
+      <WardrobeButton
+        title="Add Clothes"
+        onPress={() => console.log("Add Clothes")}
+      />
     </View>
   );
 }
