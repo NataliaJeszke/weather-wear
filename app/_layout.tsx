@@ -1,6 +1,9 @@
 import { Tabs } from "expo-router";
 
 import AntDesign from "@expo/vector-icons/AntDesign";
+import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+
 import { theme } from "../theme";
 
 export default function Layout() {
@@ -16,11 +19,24 @@ export default function Layout() {
         }}
       />
       <Tabs.Screen
-        name="addClothes"
+        name="wardrobe"
         options={{
-          title: "Add Clothes",
+          title: "Wardrobe",
           tabBarIcon: ({ color, size }) => (
-            <AntDesign name="home" size={size} color={color} />
+            <MaterialCommunityIcons
+              name="wardrobe-outline"
+              size={size}
+              color={color}
+            />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="favorite"
+        options={{
+          title: "Outfits",
+          tabBarIcon: ({ color, size }) => (
+            <MaterialIcons name="favorite-outline" size={size} color={color} />
           ),
         }}
       />
