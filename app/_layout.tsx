@@ -33,7 +33,7 @@ export default function Layout() {
         }}
       />
       <Tabs.Screen
-        name="favorite"
+        name="outfits"
         options={{
           title: "Outfits",
           tabBarIcon: ({ color, size }) => (

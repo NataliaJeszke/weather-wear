@@ -28,13 +28,14 @@ export const ClothesList: React.FC<ClothesListProps> = ({
   openModal,
 }) => {
   return (
-    <View>
+    <View style={styles.clothingListContainer}>
       <WardrobeButton title="Add Clothes" onPress={openModal} />
       <FlatList
         data={clothes}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
           <View style={styles.clothingItem}>
+            <Text>IMG</Text>
             <Text>{item.name}</Text>
             <Text>{item.type}</Text>
             <Text>{item.color}</Text>
@@ -52,9 +53,16 @@ export const ClothesList: React.FC<ClothesListProps> = ({
 };
 
 const styles = StyleSheet.create({
+  clothingListContainer: {
+    padding: 5,
+    flexWrap: "wrap",
+  },
   clothingItem: {
     padding: 10,
     borderBottomWidth: 1,
     borderBottomColor: "#ccc",
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: 10,
   },
 });

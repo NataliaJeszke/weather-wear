@@ -1,20 +1,26 @@
 import React, { useState } from "react";
 import { AddClothesItem } from "@/components/Wardrobe/AddClothesItem/AddClothesItem";
 import { WardrobeButton } from "@/components/commons/WardrobeButton/WardrobeButton";
-import { View, Text, StyleSheet, Modal, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
 import useWardrobeStore from "@/store/useWardrobeStore";
-import { ClothesList } from "@/components/Wardrobe/ClothesList/ClothesList";
+import { ClothesList } from "@/components/Wardrobe/ClothesList/ClothesList"; // Import ClothesList component
 
-export default function AddClothes() {
+export default function Wardrobe() {
   const { clothes, removeClothing } = useWardrobeStore();
-  const [modalVisible, setModalVisible] = useState(false);
+  const [showAddClothes, setShowAddClothes] = useState(false);
 
-  const openModal = () => {
-    setModalVisible(true);
+  const openAddClothes = () => {
+    setShowAddClothes(true);
   };
 
-  const closeModal = () => {
-    setModalVisible(false);
+  const closeAddClothes = () => {
+    setShowAddClothes(false);
   };
 
   return (
@@ -23,32 +29,30 @@ export default function AddClothes() {
         <ClothesList
           clothes={clothes}
           removeClothing={removeClothing}
-          openModal={openModal}
+          openModal={openAddClothes}
         />
       ) : (
         <View style={styles.emptyState}>
           <Text style={styles.emptyText}>
             No clothes available in your wardrobe
           </Text>
-          <WardrobeButton title="Add Clothes" onPress={openModal} />
+          <WardrobeButton title="Add Clothes" onPress={openAddClothes} />
         </View>
       )}
 
-      <Modal
-        visible={modalVisible}
-        animationType="slide"
-        transparent={true}
-        onRequestClose={closeModal}
-      >
-        <View style={styles.modalContainer}>
-          <View style={styles.modalContent}>
-            <TouchableOpacity onPress={closeModal} style={styles.closeButton}>
+      {showAddClothes && (
+        <View style={styles.overlay}>
+          <ScrollView contentContainerStyle={styles.scrollViewContent}>
+            <TouchableOpacity
+              onPress={closeAddClothes}
+              style={styles.closeButton}
+            >
               <Text style={styles.closeButtonText}>X</Text>
             </TouchableOpacity>
             <AddClothesItem />
-          </View>
+          </ScrollView>
         </View>
-      </Modal>
+      )}
     </View>
   );
 }
@@ -57,10 +61,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
   },
   emptyState: {
+    flex: 1,
     alignItems: "center",
     justifyContent: "center",
   },
@@ -68,17 +71,22 @@ const styles = StyleSheet.create({
     fontSize: 18,
     marginBottom: 20,
   },
-  modalContainer: {
-    flex: 1,
-    justifyContent: "flex-end",
-    backgroundColor: "rgba(0,0,0,0.5)",
+  overlay: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+    justifyContent: "center",
+    paddingHorizontal: 20,
   },
-  modalContent: {
+  scrollViewContent: {
     backgroundColor: "#fff",
-    padding: 20,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
-    maxHeight: "80%",
+    padding: 20,
+    flexGrow: 1,
   },
   closeButton: {
     alignSelf: "flex-end",

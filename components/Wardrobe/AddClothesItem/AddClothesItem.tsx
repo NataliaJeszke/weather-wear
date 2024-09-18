@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, TextInput } from "react-native";
+import { View, Text, TextInput, TouchableOpacity } from "react-native";
 import { useForm, Controller } from "react-hook-form";
 
 import useWardrobeStore, {
@@ -10,6 +10,7 @@ import useWardrobeStore, {
 
 import { WardrobeButton } from "@/components/commons/WardrobeButton/WardrobeButton";
 import { RadioButton } from "@/components/commons/RadioButton/RadioButton";
+import { ImageSweater } from "@/components/commons/Image/ImageSweater";
 
 type FormData = {
   name: string;
@@ -32,7 +33,7 @@ export const AddClothesItem = () => {
       color: data.color,
       material: data.material,
       size: data.size,
-      weatherSuitability: data.weatherSuitability as WeatherSuitability, // Castowanie do WeatherSuitability
+      weatherSuitability: data.weatherSuitability as WeatherSuitability,
     };
 
     addClothing(newClothingItem);
@@ -45,7 +46,9 @@ export const AddClothesItem = () => {
   return (
     <View>
       <Text>Add Clothes Item</Text>
-
+      <TouchableOpacity activeOpacity={0.8}>
+        <ImageSweater />
+      </TouchableOpacity>
       <Controller
         control={control}
         name="name"
