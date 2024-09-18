@@ -8,8 +8,8 @@ import useWardrobeStore, {
   ClothingItem,
 } from "@/store/useWardrobeStore";
 
-import { WardrobeButton } from "@/components/WardrobeButton/WardrobeButton";
-import { RadioButton } from "@/components/RadioButton/RadioButton";
+import { WardrobeButton } from "@/components/commons/WardrobeButton/WardrobeButton";
+import { RadioButton } from "@/components/commons/RadioButton/RadioButton";
 
 type FormData = {
   name: string;
