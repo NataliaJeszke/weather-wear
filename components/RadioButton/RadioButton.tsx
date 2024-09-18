@@ -4,7 +4,7 @@ import { View, Text, TouchableOpacity } from "react-native";
 export const RadioButton = (
   option: string,
   selectedOption: string,
-  onChange: (value: string) => void
+  onChange: (value: string) => void,
 ) => (
   <TouchableOpacity
     onPress={() => onChange(option)}

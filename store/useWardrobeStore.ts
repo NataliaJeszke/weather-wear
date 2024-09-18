@@ -3,10 +3,10 @@ import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-type ClothingType = "góra" | "dół" | "okrycie wierzchnie";
-type WeatherSuitability = "ciepło" | "zimno" | "neutralnie";
+export type ClothingType = "góra" | "dół" | "okrycie wierzchnie";
+export type WeatherSuitability = "ciepło" | "zimno" | "neutralnie";
 
-type ClothingItem = {
+export type ClothingItem = {
   id: number;
   name: string;
   type: ClothingType;

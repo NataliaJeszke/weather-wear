@@ -1,7 +1,13 @@
 import React from "react";
 import { View, Text, TextInput } from "react-native";
 import { useForm, Controller } from "react-hook-form";
-import useWardrobeStore from "@/store/useWardrobeStore";
+
+import useWardrobeStore, {
+  ClothingType,
+  WeatherSuitability,
+  ClothingItem,
+} from "@/store/useWardrobeStore";
+
 import { WardrobeButton } from "@/components/WardrobeButton/WardrobeButton";
 import { RadioButton } from "@/components/RadioButton/RadioButton";
 
@@ -19,10 +25,16 @@ export const AddClothesItem = () => {
   const { control, handleSubmit, reset } = useForm<FormData>();
 
   const onSubmit = (data: FormData) => {
-    const newClothingItem = {
+    const newClothingItem: ClothingItem = {
       id: clothes.length + 1,
-      ...data,
+      name: data.name,
+      type: data.type as ClothingType,
+      color: data.color,
+      material: data.material,
+      size: data.size,
+      weatherSuitability: data.weatherSuitability as WeatherSuitability, // Castowanie do WeatherSuitability
     };
+
     addClothing(newClothingItem);
     reset();
   };
