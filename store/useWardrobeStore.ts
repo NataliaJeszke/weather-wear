@@ -2,6 +2,7 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import * as FileSystem from "expo-file-system";
 
 export type ClothingType = "góra" | "dół" | "okrycie wierzchnie";
 export type WeatherSuitability = "ciepło" | "zimno" | "neutralnie";
@@ -14,6 +15,7 @@ export type ClothingItem = {
   material: string;
   size: string;
   weatherSuitability: WeatherSuitability;
+  uri?: string;
 };
 
 type Outfit = {
@@ -32,16 +34,36 @@ interface WardrobeState {
   removeFavorite: (id: number) => void;
 }
 
+const saveImageToFileSystem = async (uri: string) => {
+  const fileName = uri.split("/").pop();
+  const fileUri = `${FileSystem.documentDirectory}${fileName}`;
+
+  try {
+    await FileSystem.downloadAsync(uri, fileUri);
+    return fileUri;
+  } catch (error) {
+    console.error("Error saving image to filesystem:", error);
+    return null;
+  }
+};
+
 const useWardrobeStore = create(
   persist<WardrobeState>(
     (set) => ({
       clothes: [],
       favorites: [],
 
-      addClothing: (clothingItem: ClothingItem) =>
+      addClothing: async (clothingItem: ClothingItem) => {
+        if (clothingItem.uri) {
+          const localUri = await saveImageToFileSystem(clothingItem.uri);
+          if (localUri) {
+            clothingItem.uri = localUri;
+          }
+        }
         set((state) => ({
           clothes: [...state.clothes, clothingItem],
-        })),
+        }));
+      },
 
       removeClothing: (id: number) =>
         set((state) => ({

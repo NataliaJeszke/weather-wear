@@ -1,6 +1,13 @@
-import React from "react";
-import { View, Text, TextInput, TouchableOpacity } from "react-native";
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  Platform,
+} from "react-native";
 import { useForm, Controller } from "react-hook-form";
+import * as ImagePicker from "expo-image-picker";
 
 import useWardrobeStore, {
   ClothingType,
@@ -19,11 +26,13 @@ type FormData = {
   material: string;
   size: string;
   weatherSuitability: string;
+  uri?: string;
 };
 
 export const AddClothesItem = () => {
   const { addClothing, clothes } = useWardrobeStore();
   const { control, handleSubmit, reset } = useForm<FormData>();
+  const [imageUri, setImageUri] = useState<string>();
 
   const onSubmit = (data: FormData) => {
     const newClothingItem: ClothingItem = {
@@ -34,6 +43,7 @@ export const AddClothesItem = () => {
       material: data.material,
       size: data.size,
       weatherSuitability: data.weatherSuitability as WeatherSuitability,
+      uri: imageUri,
     };
 
     addClothing(newClothingItem);
@@ -43,11 +53,27 @@ export const AddClothesItem = () => {
   const typeOptions = ["góra", "dół", "okrycie wierzchnie"];
   const weatherOptions = ["ciepło", "zimno", "neutralnie"];
 
+  const handleChooseImage = async () => {
+    if (Platform.OS === "web") {
+      return;
+    }
+    const results = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [1, 1],
+      quality: 1,
+    });
+
+    if (!results.canceled) {
+      setImageUri(results.assets[0].uri);
+    }
+  };
+
   return (
     <View>
       <Text>Add Clothes Item</Text>
-      <TouchableOpacity activeOpacity={0.8}>
-        <ImageSweater />
+      <TouchableOpacity activeOpacity={0.8} onPress={handleChooseImage}>
+        <ImageSweater uri={imageUri} />
       </TouchableOpacity>
       <Controller
         control={control}

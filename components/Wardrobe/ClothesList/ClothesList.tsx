@@ -7,6 +7,7 @@ import {
 } from "react-native";
 import { WardrobeButton } from "@/components/commons/WardrobeButton/WardrobeButton";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+import { ImageSweater } from "@/components/commons/Image/ImageSweater";
 
 type ClothesListProps = {
   clothes: {
@@ -17,6 +18,7 @@ type ClothesListProps = {
     size: string;
     material: string;
     weatherSuitability: string;
+    uri?: string;
   }[];
   removeClothing: (id: number) => void;
   openModal: () => void;
@@ -35,7 +37,7 @@ export const ClothesList: React.FC<ClothesListProps> = ({
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
           <View style={styles.clothingItem}>
-            <Text>IMG</Text>
+            <ImageSweater uri={item.uri} />
             <Text>{item.name}</Text>
             <Text>{item.type}</Text>
             <Text>{item.color}</Text>

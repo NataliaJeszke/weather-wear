@@ -1,11 +1,15 @@
 import { View, Image } from "react-native";
 
-export const ImageSweater = () => {
+type Props = {
+  uri?: string;
+};
+
+export const ImageSweater = ({ uri }: Props) => {
   return (
     <View>
       <Image
         style={{ height: 100, width: 100 }}
-        source={require("@/assets/sweater.png")}
+        source={uri ? { uri: uri } : require("@/assets/sweater.png")}
       />
     </View>
   );
