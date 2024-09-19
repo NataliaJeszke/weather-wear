@@ -5,9 +5,9 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from "react-native";
-import { WardrobeButton } from "@/components/commons/WardrobeButton/WardrobeButton";
+import { WardrobeButton } from "@/components/common/WardrobeButton/WardrobeButton";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
-import { ImageSweater } from "@/components/commons/Image/ImageSweater";
+import { ImageSweater } from "@/components/common/Image/ImageSweater";
 
 type ClothesListProps = {
   clothes: {

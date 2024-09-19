@@ -5,6 +5,7 @@ export const RadioButton = (
   option: string,
   selectedOption: string,
   onChange: (value: string) => void,
+  index: number,
 ) => (
   <TouchableOpacity
     onPress={() => onChange(option)}
@@ -13,6 +14,7 @@ export const RadioButton = (
       alignItems: "center",
       paddingVertical: 5,
     }}
+    key={index}
   >
     <View
       style={{

@@ -12,9 +12,9 @@ import * as ImagePicker from "expo-image-picker";
 import { ClothingItem } from "@/utils/types";
 import { ClothingType, WeatherSuitability } from "@/utils/enums";
 
-import { WardrobeButton } from "@/components/commons/WardrobeButton/WardrobeButton";
-import { RadioButton } from "@/components/commons/RadioButton/RadioButton";
-import { ImageSweater } from "@/components/commons/Image/ImageSweater";
+import { WardrobeButton } from "@/components/common/WardrobeButton/WardrobeButton";
+import { RadioButton } from "@/components/common/RadioButton/RadioButton";
+import { ImageSweater } from "@/components/common/Image/ImageSweater";
 
 type FormData = {
   name: string;
@@ -94,7 +94,9 @@ export const AddClothesItem = ({ addClothing, clothes }: Props) => {
         render={({ field: { onChange, value } }) => (
           <View>
             <Text>Type</Text>
-            {typeOptions.map((option) => RadioButton(option, value, onChange))}
+            {typeOptions.map((option, index) =>
+              RadioButton(option, value, onChange, index),
+            )}
           </View>
         )}
       />
@@ -140,8 +142,8 @@ export const AddClothesItem = ({ addClothing, clothes }: Props) => {
         render={({ field: { onChange, value } }) => (
           <View>
             <Text>Weather Suitability</Text>
-            {weatherOptions.map((option) =>
-              RadioButton(option, value, onChange)
+            {weatherOptions.map((option, index) =>
+              RadioButton(option, value, onChange, index),
             )}
           </View>
         )}

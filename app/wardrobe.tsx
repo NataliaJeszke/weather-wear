@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { AddClothesItem } from "@/components/Wardrobe/AddClothesItem/AddClothesItem";
-import { WardrobeButton } from "@/components/commons/WardrobeButton/WardrobeButton";
+import { WardrobeButton } from "@/components/common/WardrobeButton/WardrobeButton";
 import {
   View,
   Text,
