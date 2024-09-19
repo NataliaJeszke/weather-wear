@@ -4,31 +4,12 @@ import { persist, createJSONStorage } from "zustand/middleware";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as FileSystem from "expo-file-system";
 
-export type ClothingType = "góra" | "dół" | "okrycie wierzchnie";
-export type WeatherSuitability = "ciepło" | "zimno" | "neutralnie";
-
-export type ClothingItem = {
-  id: number;
-  name: string;
-  type: ClothingType;
-  color: string;
-  material: string;
-  size: string;
-  weatherSuitability: WeatherSuitability;
-  uri?: string;
-};
-
-type Outfit = {
-  id: number;
-  top: ClothingItem;
-  bottom: ClothingItem;
-  outerwear: ClothingItem;
-};
+import { ClothingItem, Outfit } from "@/utils/types";
 
 interface WardrobeState {
   clothes: ClothingItem[];
   favorites: Outfit[];
-  addClothing: (clothingItem: ClothingItem) => void;
+  addClothing: (clothingItem: ClothingItem) => Promise<void>;
   removeClothing: (id: number) => void;
   addFavorite: (outfit: Outfit) => void;
   removeFavorite: (id: number) => void;

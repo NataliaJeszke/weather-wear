@@ -9,10 +9,10 @@ import {
   TouchableOpacity,
 } from "react-native";
 import useWardrobeStore from "@/store/useWardrobeStore";
-import { ClothesList } from "@/components/Wardrobe/ClothesList/ClothesList"; // Import ClothesList component
+import { ClothesList } from "@/components/Wardrobe/ClothesList/ClothesList";
 
 export default function Wardrobe() {
-  const { clothes, removeClothing } = useWardrobeStore();
+  const { clothes, removeClothing, addClothing } = useWardrobeStore();
   const [showAddClothes, setShowAddClothes] = useState(false);
 
   const openAddClothes = () => {
@@ -49,7 +49,7 @@ export default function Wardrobe() {
             >
               <Text style={styles.closeButtonText}>X</Text>
             </TouchableOpacity>
-            <AddClothesItem />
+            <AddClothesItem addClothing={addClothing} clothes={clothes} />
           </ScrollView>
         </View>
       )}

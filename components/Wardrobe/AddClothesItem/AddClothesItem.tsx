@@ -9,11 +9,8 @@ import {
 import { useForm, Controller } from "react-hook-form";
 import * as ImagePicker from "expo-image-picker";
 
-import useWardrobeStore, {
-  ClothingType,
-  WeatherSuitability,
-  ClothingItem,
-} from "@/store/useWardrobeStore";
+import { ClothingItem } from "@/utils/types";
+import { ClothingType, WeatherSuitability } from "@/utils/enums";
 
 import { WardrobeButton } from "@/components/commons/WardrobeButton/WardrobeButton";
 import { RadioButton } from "@/components/commons/RadioButton/RadioButton";
@@ -29,8 +26,12 @@ type FormData = {
   uri?: string;
 };
 
-export const AddClothesItem = () => {
-  const { addClothing, clothes } = useWardrobeStore();
+type Props = {
+  addClothing: (clothingItem: ClothingItem) => void;
+  clothes: ClothingItem[];
+};
+
+export const AddClothesItem = ({ addClothing, clothes }: Props) => {
   const { control, handleSubmit, reset } = useForm<FormData>();
   const [imageUri, setImageUri] = useState<string>();
 
@@ -140,7 +141,7 @@ export const AddClothesItem = () => {
           <View>
             <Text>Weather Suitability</Text>
             {weatherOptions.map((option) =>
-              RadioButton(option, value, onChange),
+              RadioButton(option, value, onChange)
             )}
           </View>
         )}

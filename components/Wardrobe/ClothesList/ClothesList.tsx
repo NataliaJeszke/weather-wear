@@ -36,7 +36,10 @@ export const ClothesList: React.FC<ClothesListProps> = ({
         data={clothes}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
-          <View style={styles.clothingItem}>
+          <View
+            style={styles.clothingItem}
+            key={new Date().getTime() + item.id}
+          >
             <ImageSweater uri={item.uri} />
             <Text>{item.name}</Text>
             <Text>{item.type}</Text>
