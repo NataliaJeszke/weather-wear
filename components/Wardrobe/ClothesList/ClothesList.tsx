@@ -6,8 +6,11 @@ import {
   StyleSheet,
 } from "react-native";
 import { WardrobeButton } from "@/components/common/WardrobeButton/WardrobeButton";
-import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { ImageSweater } from "@/components/common/Image/ImageSweater";
+
+import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+import { LinearGradient } from "expo-linear-gradient";
+import { theme } from "@/theme";
 
 type ClothesListProps = {
   clothes: {
@@ -21,14 +24,16 @@ type ClothesListProps = {
     uri?: string;
   }[];
   removeClothing: (id: number) => void;
+  addFavourite: (id: number) => void;
   openModal: () => void;
 };
 
-export const ClothesList: React.FC<ClothesListProps> = ({
+export const ClothesList = ({
   clothes,
   removeClothing,
+  addFavourite,
   openModal,
-}) => {
+}: ClothesListProps) => {
   return (
     <View style={styles.clothingListContainer}>
       <WardrobeButton title="Add Clothes" onPress={openModal} />
@@ -36,21 +41,47 @@ export const ClothesList: React.FC<ClothesListProps> = ({
         data={clothes}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
-          <View
-            style={styles.clothingItem}
-            key={new Date().getTime() + item.id}
+          <LinearGradient
+            colors={["#40e0d0", "#F98866", "#ff0080"]}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 0 }}
+            style={styles.linearGradient}
           >
-            <ImageSweater uri={item.uri} />
-            <Text>{item.name}</Text>
-            <Text>{item.type}</Text>
-            <Text>{item.color}</Text>
-            <Text>{item.size}</Text>
-            <Text>{item.material}</Text>
-            <Text>{item.weatherSuitability}</Text>
-            <TouchableOpacity onPress={() => removeClothing(item.id)}>
-              <MaterialIcons name="delete-outline" size={24} color="black" />
-            </TouchableOpacity>
-          </View>
+            <View
+              style={styles.clothingItem}
+              key={`${item.id}-${new Date().getTime()}`}
+            >
+              <ImageSweater uri={item.uri} />
+              <View style={styles.clothingInfo}>
+                <View>
+                  <Text style={styles.title}>{item.name}</Text>
+                </View>
+                <View style={styles.description}>
+                  <Text>Type: {item.type},</Text>
+                  <Text>Color: {item.color},</Text>
+                  <Text>Size: {item.size},</Text>
+                  <Text>Material: {item.material},</Text>
+                  <Text>Weather: {item.weatherSuitability}</Text>
+                </View>
+                <View style={styles.btn_container}>
+                  <TouchableOpacity onPress={() => addFavourite(item)}>
+                    <MaterialIcons
+                      name="favorite-outline"
+                      size={24}
+                      color={theme.colors.secondary}
+                    />
+                  </TouchableOpacity>
+                  <TouchableOpacity onPress={() => removeClothing(item.id)}>
+                    <MaterialIcons
+                      name="delete-outline"
+                      size={24}
+                      color={theme.colors.secondary}
+                    />
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </View>
+          </LinearGradient>
         )}
       />
     </View>
@@ -58,16 +89,41 @@ export const ClothesList: React.FC<ClothesListProps> = ({
 };
 
 const styles = StyleSheet.create({
-  clothingListContainer: {
-    padding: 5,
-    flexWrap: "wrap",
+  linearGradient: {
+    width: "100%",
+    borderRadius: 5,
+    padding: 1,
+    marginBottom: 10,
+    marginTop: 5,
   },
   clothingItem: {
-    padding: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: "#ccc",
     flexDirection: "row",
     flexWrap: "wrap",
     gap: 10,
+    backgroundColor: "#fff",
+    borderRadius: 5,
+    padding: 10,
+  },
+  clothingListContainer: {
+    padding: 5,
+    flex: 1,
+  },
+  clothingInfo: {
+    flex: 1,
+    flexDirection: "column",
+    justifyContent: "space-between",
+  },
+  title: {
+    fontWeight: "800",
+  },
+  description: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: 10,
+  },
+  btn_container: {
+    flexDirection: "row",
+    justifyContent: "flex-end",
+    gap: 15,
   },
 });

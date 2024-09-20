@@ -13,7 +13,11 @@ export type ClothingItem = {
 
 export type Outfit = {
   id: number;
-  top: ClothingItem;
-  bottom: ClothingItem;
-  outerwear: ClothingItem;
+  name: string;
+  type: ClothingType;
+  color: string;
+  material: string;
+  size: string;
+  weatherSuitability: WeatherSuitability;
+  uri?: string;
 };

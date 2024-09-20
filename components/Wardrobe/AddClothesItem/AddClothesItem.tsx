@@ -51,9 +51,6 @@ export const AddClothesItem = ({ addClothing, clothes }: Props) => {
     reset();
   };
 
-  const typeOptions = ["góra", "dół", "okrycie wierzchnie"];
-  const weatherOptions = ["ciepło", "zimno", "neutralnie"];
-
   const handleChooseImage = async () => {
     if (Platform.OS === "web") {
       return;
@@ -94,7 +91,7 @@ export const AddClothesItem = ({ addClothing, clothes }: Props) => {
         render={({ field: { onChange, value } }) => (
           <View>
             <Text>Type</Text>
-            {typeOptions.map((option, index) =>
+            {Object.values(ClothingType).map((option, index) =>
               RadioButton(option, value, onChange, index),
             )}
           </View>
@@ -142,7 +139,7 @@ export const AddClothesItem = ({ addClothing, clothes }: Props) => {
         render={({ field: { onChange, value } }) => (
           <View>
             <Text>Weather Suitability</Text>
-            {weatherOptions.map((option, index) =>
+            {Object.values(WeatherSuitability).map((option, index) =>
               RadioButton(option, value, onChange, index),
             )}
           </View>

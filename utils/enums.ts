@@ -1,11 +1,11 @@
 export enum ClothingType {
-  Top = "góra",
-  Bottom = "dół",
-  Outerwear = "okrycie wierzchnie",
+  Top = "top",
+  Bottom = "bottom",
+  Outerwear = "outwear",
 }
 
 export enum WeatherSuitability {
-  Warm = "ciepło",
-  Cold = "zimno",
-  Neutral = "neutralnie",
+  Warm = "warm",
+  Cold = "cold",
+  Neutral = "neutral",
 }
