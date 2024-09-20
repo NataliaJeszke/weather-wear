@@ -11,20 +11,12 @@ import { ImageSweater } from "@/components/common/Image/ImageSweater";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { LinearGradient } from "expo-linear-gradient";
 import { theme } from "@/theme";
+import { ClothingItem } from "@/utils/types";
 
 type ClothesListProps = {
-  clothes: {
-    id: number;
-    name: string;
-    type: string;
-    color: string;
-    size: string;
-    material: string;
-    weatherSuitability: string;
-    uri?: string;
-  }[];
+  clothes: ClothingItem[];
   removeClothing: (id: number) => void;
-  addFavourite: (id: number) => void;
+  addFavourite: (clothingItem: ClothingItem) => void;
   openModal: () => void;
 };
 

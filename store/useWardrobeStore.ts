@@ -51,9 +51,9 @@ const useWardrobeStore = create(
           clothes: state.clothes.filter((item) => item.id !== id),
         })),
 
-      addFavorite: (outfit: Outfit) =>
+      addFavorite: (clothingItem: ClothingItem) =>
         set((state) => ({
-          favorites: [...state.favorites, outfit],
+          favorites: [...state.favorites, clothingItem],
         })),
 
       removeFavorite: (id: number) =>
