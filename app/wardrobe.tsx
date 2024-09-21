@@ -12,8 +12,15 @@ import useWardrobeStore from "@/store/useWardrobeStore";
 import { ClothesList } from "@/components/Wardrobe/ClothesList/ClothesList";
 
 export default function Wardrobe() {
-  const { clothes, removeClothing, addClothing, addFavorite } =
-    useWardrobeStore();
+  const {
+    clothes,
+    favourites,
+    removeClothing,
+    addClothing,
+    addFavourite,
+    setIsFavourite,
+    removeFavourite,
+  } = useWardrobeStore();
   const [showAddClothes, setShowAddClothes] = useState(false);
 
   const openAddClothes = () => {
@@ -30,8 +37,11 @@ export default function Wardrobe() {
         <ClothesList
           clothes={clothes}
           removeClothing={removeClothing}
-          addFavourite={addFavorite}
+          addFavourite={addFavourite}
           openModal={openAddClothes}
+          setIsFavourite={setIsFavourite}
+          removeFavourite={removeFavourite}
+          favourites={favourites}
         />
       ) : (
         <View style={styles.emptyState}>

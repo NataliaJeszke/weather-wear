@@ -15,9 +15,12 @@ import { ClothingItem } from "@/utils/types";
 
 type ClothesListProps = {
   clothes: ClothingItem[];
+  favourites: ClothingItem[];
   removeClothing: (id: number) => void;
   addFavourite: (clothingItem: ClothingItem) => void;
   openModal: () => void;
+  setIsFavourite: (id: number) => void;
+  removeFavourite: (id: number) => void;
 };
 
 export const ClothesList = ({
@@ -25,7 +28,23 @@ export const ClothesList = ({
   removeClothing,
   addFavourite,
   openModal,
+  setIsFavourite,
+  removeFavourite,
+  favourites,
 }: ClothesListProps) => {
+  const handleFavourite = (item: ClothingItem) => {
+    addFavourite(item);
+    setIsFavourite(item.id);
+  };
+
+  const handleRemoveFavourite = (item: ClothingItem) => {
+    removeFavourite(item.id);
+    setIsFavourite(item.id);
+
+    console.log("removeFavourite", item.id);
+    console.log(favourites);
+  };
+
   return (
     <View style={styles.clothingListContainer}>
       <WardrobeButton title="Add Clothes" onPress={openModal} />
@@ -56,13 +75,25 @@ export const ClothesList = ({
                   <Text>Weather: {item.weatherSuitability}</Text>
                 </View>
                 <View style={styles.btn_container}>
-                  <TouchableOpacity onPress={() => addFavourite(item)}>
-                    <MaterialIcons
-                      name="favorite-outline"
-                      size={24}
-                      color={theme.colors.secondary}
-                    />
-                  </TouchableOpacity>
+                  {item.isFavourite ? (
+                    <TouchableOpacity
+                      onPress={() => handleRemoveFavourite(item)}
+                    >
+                      <MaterialIcons
+                        name="favorite"
+                        size={24}
+                        color={theme.colors.secondary}
+                      />
+                    </TouchableOpacity>
+                  ) : (
+                    <TouchableOpacity onPress={() => handleFavourite(item)}>
+                      <MaterialIcons
+                        name="favorite-outline"
+                        size={24}
+                        color={theme.colors.secondary}
+                      />
+                    </TouchableOpacity>
+                  )}
                   <TouchableOpacity onPress={() => removeClothing(item.id)}>
                     <MaterialIcons
                       name="delete-outline"

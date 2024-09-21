@@ -9,6 +9,7 @@ export type ClothingItem = {
   size: string;
   weatherSuitability: WeatherSuitability;
   uri?: string;
+  isFavourite?: boolean;
 };
 
 export type Outfit = {

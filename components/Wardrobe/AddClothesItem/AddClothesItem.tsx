@@ -45,6 +45,7 @@ export const AddClothesItem = ({ addClothing, clothes }: Props) => {
       size: data.size,
       weatherSuitability: data.weatherSuitability as WeatherSuitability,
       uri: imageUri,
+      isFavourite: false,
     };
 
     addClothing(newClothingItem);

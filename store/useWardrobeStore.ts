@@ -7,12 +7,15 @@ import * as FileSystem from "expo-file-system";
 import { ClothingItem, Outfit } from "@/utils/types";
 
 interface WardrobeState {
+  outfits: ClothingItem[][];
   clothes: ClothingItem[];
-  favorites: Outfit[];
+  favourites: Outfit[];
   addClothing: (clothingItem: ClothingItem) => Promise<void>;
   removeClothing: (id: number) => void;
-  addFavorite: (outfit: Outfit) => void;
-  removeFavorite: (id: number) => void;
+  addFavourite: (outfit: Outfit) => void;
+  removeFavourite: (id: number) => void;
+  createOutfit: (clothingItem: ClothingItem) => void;
+  setIsFavourite: (id: number) => void;
 }
 
 const saveImageToFileSystem = async (uri: string) => {
@@ -32,7 +35,8 @@ const useWardrobeStore = create(
   persist<WardrobeState>(
     (set) => ({
       clothes: [],
-      favorites: [],
+      favourites: [],
+      outfits: [],
 
       addClothing: async (clothingItem: ClothingItem) => {
         if (clothingItem.uri) {
@@ -51,15 +55,56 @@ const useWardrobeStore = create(
           clothes: state.clothes.filter((item) => item.id !== id),
         })),
 
-      addFavorite: (clothingItem: ClothingItem) =>
+      setIsFavourite: (id: number) =>
         set((state) => ({
-          favorites: [...state.favorites, clothingItem],
+          clothes: state.clothes.map((item) => {
+            if (item.id === id) {
+              return { ...item, isFavourite: !item.isFavourite };
+            }
+            return item;
+          }),
         })),
 
-      removeFavorite: (id: number) =>
+      addFavourite: (clothingItem: ClothingItem) =>
         set((state) => ({
-          favorites: state.favorites.filter((outfit) => outfit.id !== id),
+          favourites: [...state.favourites, clothingItem],
         })),
+
+      removeFavourite: (id: number) =>
+        set((state) => ({
+          favourites: state.favourites.filter((item) => item.id !== id),
+        })),
+
+      createOutfit: (clothingItem: ClothingItem) => {
+        set((state) => {
+          const lastArray = state.outfits[state.outfits.length - 1];
+
+          if (lastArray && lastArray.length < 4) {
+            return {
+              outfits: [
+                ...state.outfits.slice(0, -1),
+                [...lastArray, clothingItem],
+              ],
+            };
+          } else {
+            return {
+              outfits: [...state.outfits, [clothingItem]],
+            };
+          }
+        });
+      },
+
+      editOutfit: (oldItemId: string, newClothingItem?: ClothingItem) => {
+        set((state) => {
+          const updatedOutfits = state.outfits.map((outfitArray) =>
+            outfitArray.filter((item) => item.id !== Number(oldItemId)),
+          );
+          if (newClothingItem) {
+            updatedOutfits.push([newClothingItem]);
+          }
+          return { outfits: updatedOutfits };
+        });
+      },
     }),
     {
       name: "wardrobe-storage",
