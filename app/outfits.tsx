@@ -1,23 +1,27 @@
-import { View, Text, StyleSheet } from "react-native";
-import useWardrobeStore from "@/store/useWardrobeStore";
-
+import React from "react";
+import { View, StyleSheet } from "react-native";
 import LottieView from "lottie-react-native";
-import { FavouritesList } from "@/components/Outfits/FavouritesList";
-import OutfitList from "@/components/Outfits/OutfitList";
+import useWardrobeStore from "@/store/useWardrobeStore";
+import OutfitsList from "@/components/Outfits/OutfitsList";
+import AddOutfits from "@/components/Outfits/AddOutfits";
 
-export default function Favorite() {
-  const { favourites } = useWardrobeStore();
+export default function Outfits() {
+  const { favourites, outfits } = useWardrobeStore();
+
   return (
     <View style={styles.container}>
-      <Text>Swap to pick pieces for outfits</Text>
-      <FavouritesList favourites={favourites} />
-      <OutfitList />
-      {/* <LottieView
-        style={{ flex: 1, height: 300, width: 300 }}
-        source={require("../assets/animation/clothespick.json")}
-        autoPlay
-        loop
-      /> */}
+      <AddOutfits favourites={favourites} />
+
+      {outfits.length > 0 ? (
+        <OutfitsList outfits={outfits} />
+      ) : (
+        <LottieView
+          style={{ flex: 1, height: 300, width: 300 }}
+          source={require("../assets/animation/clothespick.json")}
+          autoPlay
+          loop
+        />
+      )}
     </View>
   );
 }
@@ -25,6 +29,7 @@ export default function Favorite() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    padding: 10,
+    backgroundColor: "white",
   },
 });
