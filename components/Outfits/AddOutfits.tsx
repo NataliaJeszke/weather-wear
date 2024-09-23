@@ -81,7 +81,7 @@ export default function AddOutfits({ favourites }) {
               {currentOutfit.length}/4 items selected
             </Text>
 
-            <Button
+            <WardrobeButton
               title="Add Outfit"
               onPress={handleSaveOutfit}
               disabled={currentOutfit.length < 1}

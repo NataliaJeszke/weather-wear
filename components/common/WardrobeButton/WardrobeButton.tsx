@@ -5,12 +5,19 @@ import { theme } from "@/theme";
 type Props = {
   title: string;
   onPress: () => void;
+  disabled?: boolean;
 };
 
-export function WardrobeButton({ title, onPress }: Props) {
+export function WardrobeButton({ title, onPress, disabled }: Props) {
   return (
-    <Pressable onPress={onPress} style={styles.button}>
-      <Text style={styles.text}>{title}</Text>
+    <Pressable
+      onPress={onPress}
+      style={[styles.button, disabled && styles.disabled]}
+      disabled={disabled}
+    >
+      <Text style={[styles.text, disabled && styles.disabledText]}>
+        {title}
+      </Text>
     </Pressable>
   );
 }
@@ -28,5 +35,11 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.primary,
     alignItems: "center",
     justifyContent: "center",
+  },
+  disabled: {
+    backgroundColor: "gray",
+  },
+  disabledText: {
+    color: "lightgray",
   },
 });

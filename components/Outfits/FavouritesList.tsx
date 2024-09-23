@@ -34,10 +34,6 @@ export const FavouritesList = ({
                     <Text>{item.material}</Text>
                     <Text>{item.weatherSuitability}</Text>
                   </View>
-                  <View style={styles.btns}>
-                    <Text>Add</Text>
-                    <Text>Remove</Text>
-                  </View>
                 </View>
               </LinearGradient>
             </View>
@@ -74,23 +70,18 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     borderRadius: 5,
     padding: 10,
-    width: 300,
-    alignItems: "stretch",
-    justifyContent: "space-between",
+    width: "100%",
+    justifyContent: "space-around",
   },
   clothingInfo: {
-    marginTop: 10,
-    paddingLeft: 5,
+    marginTop: 5,
+    paddingRight: 30,
     gap: 5,
+    justifyContent: "space-between",
     flexWrap: "wrap",
   },
   title: {
     fontWeight: "800",
     color: "#000",
-  },
-  btns: {
-    gap: 25,
-    padding: 10,
-    alignItems: "flex-end",
   },
 });

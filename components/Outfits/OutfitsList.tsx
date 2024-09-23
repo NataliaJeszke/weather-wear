@@ -22,7 +22,7 @@ export default function OutfitsList({ outfits }) {
 
 const styles = StyleSheet.create({
   scrollContainer: {
-    padding: 10,
+    padding: 5,
     flexGrow: 1,
   },
   shelfContainer: {

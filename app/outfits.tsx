@@ -8,6 +8,8 @@ import AddOutfits from "@/components/Outfits/AddOutfits";
 export default function Outfits() {
   const { favourites, outfits } = useWardrobeStore();
 
+  console.log(outfits);
+
   return (
     <View style={styles.container}>
       <AddOutfits favourites={favourites} />
@@ -29,7 +31,6 @@ export default function Outfits() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 10,
-    backgroundColor: "white",
+    backgroundColor: "#fff",
   },
 });
