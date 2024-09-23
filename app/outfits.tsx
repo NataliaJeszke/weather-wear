@@ -8,8 +8,6 @@ import AddOutfits from "@/components/Outfits/AddOutfits";
 export default function Outfits() {
   const { favourites, outfits } = useWardrobeStore();
 
-  console.log("OUTFITS.TSX", outfits);
-
   return (
     <View style={styles.container}>
       <AddOutfits favourites={favourites} />

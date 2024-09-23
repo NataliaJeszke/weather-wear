@@ -10,8 +10,13 @@ import { ImageSweater } from "../common/Image/ImageSweater";
 import useWardrobeStore from "@/store/useWardrobeStore";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { theme } from "@/theme";
+import { ClothingItem } from "@/utils/types";
 
-export default function OutfitsList({ outfits }) {
+type OutfitsListProps = {
+  outfits: ClothingItem[][];
+};
+
+export default function OutfitsList({ outfits }: OutfitsListProps) {
   const { removeOutfit } = useWardrobeStore();
   return (
     <ScrollView contentContainerStyle={styles.scrollContainer}>

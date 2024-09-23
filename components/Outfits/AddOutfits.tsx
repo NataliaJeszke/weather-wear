@@ -6,11 +6,16 @@ import useWardrobeStore from "@/store/useWardrobeStore";
 import { FavouritesList } from "./FavouritesList";
 import { WardrobeButton } from "../common/WardrobeButton/WardrobeButton";
 import { ImageSweater } from "../common/Image/ImageSweater";
+import { ClothingItem } from "@/utils/types";
 
-export default function AddOutfits({ favourites }) {
+type AddOutfitsProps = {
+  favourites: ClothingItem[];
+};
+
+export default function AddOutfits({ favourites }: AddOutfitsProps) {
   const { createOutfit } = useWardrobeStore();
   const [isModalVisible, setModalVisible] = useState(false);
-  const [currentOutfit, setCurrentOutfit] = useState([]);
+  const [currentOutfit, setCurrentOutfit] = useState<ClothingItem[]>([]);
 
   const handleOpenModal = () => {
     setModalVisible(true);
@@ -20,7 +25,7 @@ export default function AddOutfits({ favourites }) {
     setModalVisible(false);
   };
 
-  const handleAddToOutfit = (item) => {
+  const handleAddToOutfit = (item: ClothingItem) => {
     if (currentOutfit.length < 4) {
       setCurrentOutfit([...currentOutfit, item]);
     }
