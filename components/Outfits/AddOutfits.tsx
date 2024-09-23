@@ -124,6 +124,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
     marginBottom: 20,
+    textAlign: "center",
   },
   outfitContainer: {
     flexDirection: "row",
@@ -135,7 +136,6 @@ const styles = StyleSheet.create({
     height: 70,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#f0f0f0",
     borderRadius: 5,
   },
   linearGradient: {
@@ -145,5 +145,6 @@ const styles = StyleSheet.create({
   statusText: {
     fontSize: 16,
     marginBottom: 10,
+    textAlign: "center",
   },
 });

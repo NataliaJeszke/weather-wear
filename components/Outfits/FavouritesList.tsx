@@ -2,6 +2,7 @@ import React from "react";
 import PagerView from "react-native-pager-view";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { ImageSweater } from "@/components/common/Image/ImageSweater";
+
 import { ClothingItem } from "@/utils/types";
 
 import { LinearGradient } from "expo-linear-gradient";
@@ -17,7 +18,7 @@ export const FavouritesList = ({
 }: FavouritesListProps) => {
   return (
     <View style={styles.galleryContainer}>
-      <PagerView style={styles.pagerView} initialPage={0}>
+      <PagerView style={styles.pagerView}>
         {favourites.map((item) => (
           <TouchableOpacity key={item.id} onPress={() => onSelect(item)}>
             <View key={item.id} style={styles.page}>

@@ -15,6 +15,7 @@ import { ImageSweater } from "../common/Image/ImageSweater";
 
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { theme } from "@/theme";
+import { LinearGradient } from "expo-linear-gradient";
 
 type OutfitsListProps = {
   outfits: ClothingItem[][];
@@ -25,23 +26,32 @@ export default function OutfitsList({ outfits }: OutfitsListProps) {
   return (
     <ScrollView contentContainerStyle={styles.scrollContainer}>
       {outfits.map((outfit, index) => (
-        <View key={index} style={styles.shelfContainer}>
-          <Text style={styles.outfitTitle}>Outfit {index + 1}</Text>
-          <View style={styles.outfitShelf}>
-            {outfit.map((item, itemIndex) => (
-              <View key={itemIndex} style={styles.itemContainer}>
-                <ImageSweater uri={item.uri} />
-              </View>
-            ))}
+        <LinearGradient
+          colors={["#40e0d0", "#F98866", "#ff0080"]}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 0 }}
+          style={styles.linearGradient}
+        >
+          <View key={index} style={styles.shelfContainer}>
+            <View style={styles.shelf_header}>
+              <Text style={styles.outfitTitle}>Outfit {index + 1}</Text>
+              <TouchableOpacity onPress={() => removeOutfit(index)}>
+                <MaterialIcons
+                  name="delete-outline"
+                  size={24}
+                  color={theme.colors.secondary}
+                />
+              </TouchableOpacity>
+            </View>
+            <View style={styles.outfitShelf}>
+              {outfit.map((item, itemIndex) => (
+                <View key={itemIndex} style={styles.itemContainer}>
+                  <ImageSweater uri={item.uri} />
+                </View>
+              ))}
+            </View>
           </View>
-          <TouchableOpacity onPress={() => removeOutfit(index)}>
-            <MaterialIcons
-              name="delete-outline"
-              size={24}
-              color={theme.colors.secondary}
-            />
-          </TouchableOpacity>
-        </View>
+        </LinearGradient>
       ))}
     </ScrollView>
   );
@@ -53,10 +63,14 @@ const styles = StyleSheet.create({
     flexGrow: 1,
   },
   shelfContainer: {
-    marginBottom: 20,
     padding: 10,
-    backgroundColor: "#f0f0f0",
-    borderRadius: 10,
+    backgroundColor: "#fff",
+    borderRadius: 5,
+    gap: 10,
+  },
+  shelf_header: {
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
   outfitTitle: {
     fontSize: 18,
@@ -74,5 +88,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 10,
+  },
+  linearGradient: {
+    width: "100%",
+    borderRadius: 5,
+    padding: 1,
+    marginBottom: 10,
+    marginTop: 5,
   },
 });
