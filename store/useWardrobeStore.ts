@@ -14,7 +14,7 @@ interface WardrobeState {
   removeClothing: (id: number) => void;
   addFavourite: (outfit: Outfit) => void;
   removeFavourite: (id: number) => void;
-  createOutfit: (clothingItem: ClothingItem) => void;
+  createOutfit: (clothingItem: ClothingItem[]) => void;
   setIsFavourite: (id: number) => void;
   removeOutfit: (index: number) => void;
 }
@@ -76,23 +76,10 @@ const useWardrobeStore = create(
           favourites: state.favourites.filter((item) => item.id !== id),
         })),
 
-      createOutfit: (clothingItem: ClothingItem) => {
-        set((state) => {
-          const lastArray = state.outfits[state.outfits.length - 1];
-
-          if (lastArray && lastArray.length < 4) {
-            return {
-              outfits: [
-                ...state.outfits.slice(0, -1),
-                [...lastArray, clothingItem],
-              ],
-            };
-          } else {
-            return {
-              outfits: [...state.outfits, [clothingItem]],
-            };
-          }
-        });
+      createOutfit: (clothingItems: ClothingItem[]) => {
+        return set((state) => ({
+          outfits: [...state.outfits, clothingItems],
+        }));
       },
 
       editOutfit: (oldItemId: string, newClothingItem?: ClothingItem) => {

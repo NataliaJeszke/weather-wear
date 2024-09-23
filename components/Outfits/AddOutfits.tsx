@@ -28,6 +28,7 @@ export default function AddOutfits({ favourites }) {
 
   const handleSaveOutfit = () => {
     createOutfit(currentOutfit);
+    console.log("Outfit created", currentOutfit);
     setCurrentOutfit([]);
     setModalVisible(false);
   };
