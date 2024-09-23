@@ -1,12 +1,10 @@
 import React from "react";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import PagerView from "react-native-pager-view";
-import { WardrobeButton } from "@/components/common/WardrobeButton/WardrobeButton";
+import { View, Text, StyleSheet } from "react-native";
 import { ImageSweater } from "@/components/common/Image/ImageSweater";
-import MaterialIcons from "@expo/vector-icons/MaterialIcons";
-import { LinearGradient } from "expo-linear-gradient";
-import { theme } from "@/theme";
 import { ClothingItem } from "@/utils/types";
+
+import { LinearGradient } from "expo-linear-gradient";
 
 type FavouritesListProps = {
   favourites: ClothingItem[];
@@ -15,11 +13,7 @@ type FavouritesListProps = {
 export const FavouritesList = ({ favourites }: FavouritesListProps) => {
   return (
     <View style={styles.galleryContainer}>
-      <PagerView
-        style={styles.pagerView}
-        initialPage={0}
-        showPageIndicator={true}
-      >
+      <PagerView style={styles.pagerView} initialPage={0}>
         {favourites.map((item) => (
           <View key={item.id} style={styles.page}>
             <LinearGradient
@@ -32,6 +26,12 @@ export const FavouritesList = ({ favourites }: FavouritesListProps) => {
                 <ImageSweater uri={item.uri} />
                 <View style={styles.clothingInfo}>
                   <Text style={styles.title}>{item.name}</Text>
+                  <Text>{item.material}</Text>
+                  <Text>{item.weatherSuitability}</Text>
+                </View>
+                <View style={styles.btns}>
+                  <Text>Add</Text>
+                  <Text>Remove</Text>
                 </View>
               </View>
             </LinearGradient>
@@ -64,17 +64,27 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
   },
   clothingItem: {
-    flexDirection: "column",
+    flexDirection: "row",
     backgroundColor: "#fff",
     borderRadius: 5,
     padding: 10,
     width: 300,
+    alignItems: "stretch",
+    justifyContent: "space-between",
   },
   clothingInfo: {
     marginTop: 10,
+    paddingLeft: 5,
+    gap: 5,
+    flexWrap: "wrap",
   },
   title: {
     fontWeight: "800",
     color: "#000",
+  },
+  btns: {
+    gap: 25,
+    padding: 10,
+    alignItems: "flex-end",
   },
 });

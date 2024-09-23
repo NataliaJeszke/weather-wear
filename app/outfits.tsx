@@ -3,13 +3,15 @@ import useWardrobeStore from "@/store/useWardrobeStore";
 
 import LottieView from "lottie-react-native";
 import { FavouritesList } from "@/components/Outfits/FavouritesList";
+import OutfitList from "@/components/Outfits/OutfitList";
 
 export default function Favorite() {
   const { favourites } = useWardrobeStore();
   return (
     <View style={styles.container}>
-      <Text>Your favorite clothes will be displayed here</Text>
+      <Text>Swap to pick pieces for outfits</Text>
       <FavouritesList favourites={favourites} />
+      <OutfitList />
       {/* <LottieView
         style={{ flex: 1, height: 300, width: 300 }}
         source={require("../assets/animation/clothespick.json")}
