@@ -1,5 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet, Image, ScrollView } from "react-native";
+import { ImageSweater } from "../common/Image/ImageSweater";
 
 export default function OutfitsList({ outfits }) {
   return (
@@ -10,7 +11,7 @@ export default function OutfitsList({ outfits }) {
           <View style={styles.outfitShelf}>
             {outfit.map((item, itemIndex) => (
               <View key={itemIndex} style={styles.itemContainer}>
-                <Image source={{ uri: item.uri }} style={styles.itemImage} />
+                <ImageSweater uri={item.uri} />
               </View>
             ))}
           </View>
@@ -46,11 +47,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     justifyContent: "center",
     alignItems: "center",
-    borderRadius: 10,
-  },
-  itemImage: {
-    width: "100%",
-    height: "100%",
     borderRadius: 10,
   },
 });
