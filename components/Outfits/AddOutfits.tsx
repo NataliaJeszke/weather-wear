@@ -5,6 +5,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import useWardrobeStore from "@/store/useWardrobeStore";
 import { FavouritesList } from "./FavouritesList";
 import { WardrobeButton } from "../common/WardrobeButton/WardrobeButton";
+import { ImageSweater } from "../common/Image/ImageSweater";
 
 export default function AddOutfits({ favourites }) {
   const { createOutfit } = useWardrobeStore();
@@ -55,10 +56,7 @@ export default function AddOutfits({ favourites }) {
                 .map((_, index) => (
                   <View key={index} style={styles.hangerSlot}>
                     {currentOutfit[index] ? (
-                      <Image
-                        source={{ uri: currentOutfit[index].uri }}
-                        style={styles.selectedItemImage}
-                      />
+                      <ImageSweater uri={currentOutfit[index].uri} />
                     ) : (
                       <LinearGradient
                         colors={["#40e0d0", "#F98866", "#ff0080"]}
@@ -114,7 +112,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   title: {
-    fontSize: 24,
+    fontSize: 20,
     fontWeight: "bold",
     marginBottom: 20,
   },
@@ -129,11 +127,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#f0f0f0",
-    borderRadius: 5,
-  },
-  selectedItemImage: {
-    width: "100%",
-    height: "100%",
     borderRadius: 5,
   },
   linearGradient: {

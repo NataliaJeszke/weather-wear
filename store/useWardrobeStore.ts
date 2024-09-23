@@ -16,6 +16,7 @@ interface WardrobeState {
   removeFavourite: (id: number) => void;
   createOutfit: (clothingItem: ClothingItem) => void;
   setIsFavourite: (id: number) => void;
+  removeOutfit: (index: number) => void;
 }
 
 const saveImageToFileSystem = async (uri: string) => {
@@ -105,6 +106,13 @@ const useWardrobeStore = create(
           return { outfits: updatedOutfits };
         });
       },
+
+      removeOutfit: (index: number) =>
+        set((state) => ({
+          outfits: state.outfits.filter(
+            (_, outfitIndex) => outfitIndex !== index,
+          ),
+        })),
     }),
     {
       name: "wardrobe-storage",

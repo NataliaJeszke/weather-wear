@@ -1,8 +1,18 @@
 import React from "react";
-import { View, Text, StyleSheet, Image, ScrollView } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
 import { ImageSweater } from "../common/Image/ImageSweater";
+import useWardrobeStore from "@/store/useWardrobeStore";
+import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+import { theme } from "@/theme";
 
 export default function OutfitsList({ outfits }) {
+  const { removeOutfit } = useWardrobeStore();
   return (
     <ScrollView contentContainerStyle={styles.scrollContainer}>
       {outfits.map((outfit, index) => (
@@ -15,6 +25,13 @@ export default function OutfitsList({ outfits }) {
               </View>
             ))}
           </View>
+          <TouchableOpacity onPress={() => removeOutfit(index)}>
+            <MaterialIcons
+              name="delete-outline"
+              size={24}
+              color={theme.colors.secondary}
+            />
+          </TouchableOpacity>
         </View>
       ))}
     </ScrollView>
