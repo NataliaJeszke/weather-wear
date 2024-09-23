@@ -1,12 +1,15 @@
 import React, { useState } from "react";
-import { View, Text, Button, Modal, StyleSheet, Image } from "react-native";
-import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
-import { LinearGradient } from "expo-linear-gradient";
+import { View, Text, Button, Modal, StyleSheet } from "react-native";
+
 import useWardrobeStore from "@/store/useWardrobeStore";
+
 import { FavouritesList } from "./FavouritesList";
 import { WardrobeButton } from "../common/WardrobeButton/WardrobeButton";
 import { ImageSweater } from "../common/Image/ImageSweater";
 import { ClothingItem } from "@/utils/types";
+
+import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import { LinearGradient } from "expo-linear-gradient";
 
 type AddOutfitsProps = {
   favourites: ClothingItem[];

@@ -6,11 +6,15 @@ import {
   TouchableOpacity,
   ScrollView,
 } from "react-native";
-import { ImageSweater } from "../common/Image/ImageSweater";
+
 import useWardrobeStore from "@/store/useWardrobeStore";
+
+import { ClothingItem } from "@/utils/types";
+
+import { ImageSweater } from "../common/Image/ImageSweater";
+
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { theme } from "@/theme";
-import { ClothingItem } from "@/utils/types";
 
 type OutfitsListProps = {
   outfits: ClothingItem[][];

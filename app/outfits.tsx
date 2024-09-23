@@ -1,9 +1,12 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
-import LottieView from "lottie-react-native";
+
 import useWardrobeStore from "@/store/useWardrobeStore";
+
 import OutfitsList from "@/components/Outfits/OutfitsList";
 import AddOutfits from "@/components/Outfits/AddOutfits";
+
+import LottieView from "lottie-react-native";
 
 export default function Outfits() {
   const { favourites, outfits } = useWardrobeStore();
