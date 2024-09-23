@@ -7,6 +7,7 @@ import OutfitsList from "@/components/Outfits/OutfitsList";
 import AddOutfits from "@/components/Outfits/AddOutfits";
 
 import LottieView from "lottie-react-native";
+import Hanger from "@/components/common/Hanger/Hanger";
 
 export default function Outfits() {
   const { favourites, outfits } = useWardrobeStore();
@@ -15,16 +16,7 @@ export default function Outfits() {
     <View style={styles.container}>
       <AddOutfits favourites={favourites} />
 
-      {outfits.length > 0 ? (
-        <OutfitsList outfits={outfits} />
-      ) : (
-        <LottieView
-          style={{ flex: 1, height: 300, width: 300, alignSelf: "center" }}
-          source={require("../assets/animation/clothespick.json")}
-          autoPlay
-          loop
-        />
-      )}
+      {outfits.length > 0 ? <OutfitsList outfits={outfits} /> : <Hanger />}
     </View>
   );
 }
