@@ -19,7 +19,7 @@ export default function Outfits() {
         <OutfitsList outfits={outfits} />
       ) : (
         <LottieView
-          style={{ flex: 1, height: 300, width: 300 }}
+          style={{ flex: 1, height: 300, width: 300, alignSelf: "center" }}
           source={require("../assets/animation/clothespick.json")}
           autoPlay
           loop

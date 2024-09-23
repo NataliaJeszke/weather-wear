@@ -104,7 +104,6 @@ export default function AddOutfits({ favourites }: AddOutfitsProps) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: "#fff",
     padding: 5,
   },
