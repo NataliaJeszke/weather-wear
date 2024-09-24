@@ -22,7 +22,7 @@ export const FavouritesList = ({
         {favourites.map((item) => (
           <CustomLinearGradient style={styles.linearGradient}>
             <TouchableOpacity key={item.id} onPress={() => onSelect(item)}>
-              <View key={item.id} style={styles.page}>
+              <View key={item.id + 1} style={styles.page}>
                 <View style={styles.clothingItem}>
                   <ImageSweater uri={item.uri} />
                   <View style={styles.clothingInfo}>

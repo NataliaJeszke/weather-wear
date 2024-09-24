@@ -96,10 +96,10 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   linearGradient: {
+    flex: 0,
     width: "100%",
     borderRadius: 5,
     padding: 1,
-    marginBottom: 10,
     marginTop: 5,
   },
 });
