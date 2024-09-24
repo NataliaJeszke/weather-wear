@@ -6,7 +6,8 @@ import { ClothesDisplay } from "../components/ClothesDisplay/ClothesDisplay";
 import { useApi } from "../hooks/useApi";
 import { useGeocode } from "../hooks/useGeocode";
 
-import LottieView from "lottie-react-native";
+import CustomLinearGradient from "@/components/common/CustomLinearGradient/CustomLinearGradient";
+import Tshirt from "@/components/common/Tshirt/Tshirt";
 
 export default function App() {
   const [searchQuery, setSearchQuery] = useState<string>("");
@@ -20,7 +21,7 @@ export default function App() {
       "Location is empty",
       "Write down your location.",
       [{ text: "OK", onPress: () => console.log("OK Pressed") }],
-      { cancelable: false },
+      { cancelable: false }
     );
   };
 
@@ -74,36 +75,32 @@ export default function App() {
   };
 
   return (
-    <View style={styles.container}>
-      <View style={{ height: 200, width: 350 }}>
-        <SearchBar
-          searchQuery={searchQuery}
-          onSearchChange={setSearchQuery}
-          onSearchSubmit={handleSearch}
-          onClearSearch={handleClearSearch}
-        />
-      </View>
-      <View style={styles.weatherContainer}>
-        {temperature !== null ? (
-          <ClothesDisplay temperature={temperature} />
-        ) : (
-          <LottieView
-            style={{ flex: 1, height: 300, width: 300 }}
-            source={require("../assets/animation/animdog.json")}
-            autoPlay
-            loop
+    <CustomLinearGradient style={undefined}>
+      <View style={styles.container}>
+        <View style={{ height: 200, width: 350 }}>
+          <SearchBar
+            searchQuery={searchQuery}
+            onSearchChange={setSearchQuery}
+            onSearchSubmit={handleSearch}
+            onClearSearch={handleClearSearch}
           />
-        )}
+        </View>
+        <View style={styles.weatherContainer}>
+          {temperature !== null ? (
+            <ClothesDisplay temperature={temperature} />
+          ) : (
+            <Tshirt />
+          )}
+        </View>
+        <StatusBar />
       </View>
-      <StatusBar />
-    </View>
+    </CustomLinearGradient>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
   },

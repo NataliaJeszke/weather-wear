@@ -1,15 +1,10 @@
 import React, { useState } from "react";
+import { View, Text, StyleSheet } from "react-native";
+import useWardrobeStore from "@/store/useWardrobeStore";
 import { AddClothesItem } from "@/components/Wardrobe/AddClothesItem/AddClothesItem";
 import { WardrobeButton } from "@/components/common/WardrobeButton/WardrobeButton";
-import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  TouchableOpacity,
-} from "react-native";
-import useWardrobeStore from "@/store/useWardrobeStore";
 import { ClothesList } from "@/components/Wardrobe/ClothesList/ClothesList";
+import CustomLinearGradient from "@/components/common/CustomLinearGradient/CustomLinearGradient";
 
 export default function Wardrobe() {
   const {
@@ -32,47 +27,40 @@ export default function Wardrobe() {
   };
 
   return (
-    <View style={styles.container}>
-      {clothes.length > 0 ? (
-        <ClothesList
+    <CustomLinearGradient style={styles.container}>
+      <View style={styles.container}>
+        {clothes.length > 0 ? (
+          <ClothesList
+            clothes={clothes}
+            removeClothing={removeClothing}
+            addFavourite={addFavourite}
+            openModal={openAddClothes}
+            setIsFavourite={setIsFavourite}
+            removeFavourite={removeFavourite}
+            favourites={favourites}
+          />
+        ) : (
+          <View style={styles.emptyState}>
+            <Text style={styles.emptyText}>
+              No clothes available in your wardrobe
+            </Text>
+            <WardrobeButton title="Add Clothes" onPress={openAddClothes} />
+          </View>
+        )}
+        <AddClothesItem
+          addClothing={addClothing}
           clothes={clothes}
-          removeClothing={removeClothing}
-          addFavourite={addFavourite}
-          openModal={openAddClothes}
-          setIsFavourite={setIsFavourite}
-          removeFavourite={removeFavourite}
-          favourites={favourites}
+          visible={showAddClothes}
+          onClose={closeAddClothes}
         />
-      ) : (
-        <View style={styles.emptyState}>
-          <Text style={styles.emptyText}>
-            No clothes available in your wardrobe
-          </Text>
-          <WardrobeButton title="Add Clothes" onPress={openAddClothes} />
-        </View>
-      )}
-
-      {showAddClothes && (
-        <View style={styles.overlay}>
-          <ScrollView contentContainerStyle={styles.scrollViewContent}>
-            <TouchableOpacity
-              onPress={closeAddClothes}
-              style={styles.closeButton}
-            >
-              <Text style={styles.closeButtonText}>X</Text>
-            </TouchableOpacity>
-            <AddClothesItem addClothing={addClothing} clothes={clothes} />
-          </ScrollView>
-        </View>
-      )}
-    </View>
+      </View>
+    </CustomLinearGradient>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
   },
   emptyState: {
     flex: 1,
@@ -82,30 +70,5 @@ const styles = StyleSheet.create({
   emptyText: {
     fontSize: 18,
     marginBottom: 20,
-  },
-  overlay: {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
-    justifyContent: "center",
-    paddingHorizontal: 20,
-  },
-  scrollViewContent: {
-    backgroundColor: "#fff",
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    padding: 20,
-    flexGrow: 1,
-  },
-  closeButton: {
-    alignSelf: "flex-end",
-    padding: 10,
-  },
-  closeButtonText: {
-    fontSize: 18,
-    color: "#000",
   },
 });

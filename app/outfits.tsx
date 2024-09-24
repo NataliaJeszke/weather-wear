@@ -5,25 +5,25 @@ import useWardrobeStore from "@/store/useWardrobeStore";
 
 import OutfitsList from "@/components/Outfits/OutfitsList";
 import AddOutfits from "@/components/Outfits/AddOutfits";
-
-import LottieView from "lottie-react-native";
 import Hanger from "@/components/common/Hanger/Hanger";
+import CustomLinearGradient from "@/components/common/CustomLinearGradient/CustomLinearGradient";
 
 export default function Outfits() {
   const { favourites, outfits } = useWardrobeStore();
 
   return (
-    <View style={styles.container}>
-      <AddOutfits favourites={favourites} />
+    <CustomLinearGradient style={styles.container}>
+      <View style={styles.container}>
+        <AddOutfits favourites={favourites} />
 
-      {outfits.length > 0 ? <OutfitsList outfits={outfits} /> : <Hanger />}
-    </View>
+        {outfits.length > 0 ? <OutfitsList outfits={outfits} /> : <Hanger />}
+      </View>
+    </CustomLinearGradient>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
   },
 });

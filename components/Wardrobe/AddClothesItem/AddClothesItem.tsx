@@ -5,6 +5,9 @@ import {
   TextInput,
   TouchableOpacity,
   Platform,
+  Modal,
+  StyleSheet,
+  ScrollView,
 } from "react-native";
 import { useForm, Controller } from "react-hook-form";
 import * as ImagePicker from "expo-image-picker";
@@ -29,9 +32,16 @@ type FormData = {
 type Props = {
   addClothing: (clothingItem: ClothingItem) => void;
   clothes: ClothingItem[];
+  visible: boolean;
+  onClose: () => void;
 };
 
-export const AddClothesItem = ({ addClothing, clothes }: Props) => {
+export const AddClothesItem = ({
+  addClothing,
+  clothes,
+  visible,
+  onClose,
+}: Props) => {
   const { control, handleSubmit, reset } = useForm<FormData>();
   const [imageUri, setImageUri] = useState<string>();
 
@@ -50,6 +60,7 @@ export const AddClothesItem = ({ addClothing, clothes }: Props) => {
 
     addClothing(newClothingItem);
     reset();
+    onClose();
   };
 
   const handleChooseImage = async () => {
@@ -69,85 +80,136 @@ export const AddClothesItem = ({ addClothing, clothes }: Props) => {
   };
 
   return (
-    <View>
-      <Text>Add Clothes Item</Text>
-      <TouchableOpacity activeOpacity={0.8} onPress={handleChooseImage}>
-        <ImageSweater uri={imageUri} />
-      </TouchableOpacity>
-      <Controller
-        control={control}
-        name="name"
-        render={({ field: { onChange, onBlur, value } }) => (
-          <TextInput
-            placeholder="Name"
-            onBlur={onBlur}
-            onChangeText={onChange}
-            value={value}
-          />
-        )}
-      />
-      <Controller
-        control={control}
-        name="type"
-        render={({ field: { onChange, value } }) => (
-          <View>
-            <Text>Type</Text>
-            {Object.values(ClothingType).map((option, index) =>
-              RadioButton(option, value, onChange, index),
-            )}
-          </View>
-        )}
-      />
-      <Controller
-        control={control}
-        name="color"
-        render={({ field: { onChange, onBlur, value } }) => (
-          <TextInput
-            placeholder="Color"
-            onBlur={onBlur}
-            onChangeText={onChange}
-            value={value}
-          />
-        )}
-      />
-      <Controller
-        control={control}
-        name="material"
-        render={({ field: { onChange, onBlur, value } }) => (
-          <TextInput
-            placeholder="Material"
-            onBlur={onBlur}
-            onChangeText={onChange}
-            value={value}
-          />
-        )}
-      />
-      <Controller
-        control={control}
-        name="size"
-        render={({ field: { onChange, onBlur, value } }) => (
-          <TextInput
-            placeholder="Size"
-            onBlur={onBlur}
-            onChangeText={onChange}
-            value={value}
-          />
-        )}
-      />
-      <Controller
-        control={control}
-        name="weatherSuitability"
-        render={({ field: { onChange, value } }) => (
-          <View>
-            <Text>Weather Suitability</Text>
-            {Object.values(WeatherSuitability).map((option, index) =>
-              RadioButton(option, value, onChange, index),
-            )}
-          </View>
-        )}
-      />
-
-      <WardrobeButton title="Add Clothes" onPress={handleSubmit(onSubmit)} />
-    </View>
+    <Modal
+      animationType="slide"
+      transparent={true}
+      visible={visible}
+      onRequestClose={onClose}
+    >
+      <View style={styles.modalOverlay}>
+        <View style={styles.modalContent}>
+          <TouchableOpacity onPress={onClose} style={styles.closeButton}>
+            <Text style={styles.closeButtonText}>X</Text>
+          </TouchableOpacity>
+          <ScrollView contentContainerStyle={styles.scrollViewContent}>
+            <Text>Add Clothes Item</Text>
+            <TouchableOpacity activeOpacity={0.8} onPress={handleChooseImage}>
+              <ImageSweater uri={imageUri} />
+            </TouchableOpacity>
+            <Controller
+              control={control}
+              name="name"
+              render={({ field: { onChange, onBlur, value } }) => (
+                <TextInput
+                  placeholder="Name"
+                  onBlur={onBlur}
+                  onChangeText={onChange}
+                  value={value}
+                />
+              )}
+            />
+            <Controller
+              control={control}
+              name="type"
+              render={({ field: { onChange, value } }) => (
+                <View>
+                  <Text>Type</Text>
+                  {Object.values(ClothingType).map((option, index) =>
+                    RadioButton(option, value, onChange, index),
+                  )}
+                </View>
+              )}
+            />
+            <Controller
+              control={control}
+              name="color"
+              render={({ field: { onChange, onBlur, value } }) => (
+                <TextInput
+                  placeholder="Color"
+                  onBlur={onBlur}
+                  onChangeText={onChange}
+                  value={value}
+                />
+              )}
+            />
+            <Controller
+              control={control}
+              name="material"
+              render={({ field: { onChange, onBlur, value } }) => (
+                <TextInput
+                  placeholder="Material"
+                  onBlur={onBlur}
+                  onChangeText={onChange}
+                  value={value}
+                />
+              )}
+            />
+            <Controller
+              control={control}
+              name="size"
+              render={({ field: { onChange, onBlur, value } }) => (
+                <TextInput
+                  placeholder="Size"
+                  onBlur={onBlur}
+                  onChangeText={onChange}
+                  value={value}
+                />
+              )}
+            />
+            <Controller
+              control={control}
+              name="weatherSuitability"
+              render={({ field: { onChange, value } }) => (
+                <View>
+                  <Text>Weather Suitability</Text>
+                  {Object.values(WeatherSuitability).map((option, index) =>
+                    RadioButton(option, value, onChange, index),
+                  )}
+                </View>
+              )}
+            />
+            <WardrobeButton
+              title="Add Clothes"
+              onPress={handleSubmit(onSubmit)}
+            />
+          </ScrollView>
+        </View>
+      </View>
+    </Modal>
   );
 };
+
+const styles = StyleSheet.create({
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  modalContent: {
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 20,
+    width: "90%",
+    maxHeight: "80%",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  closeButton: {
+    alignSelf: "flex-end",
+    padding: 10,
+  },
+  closeButtonText: {
+    fontSize: 18,
+    color: "#000",
+  },
+  scrollViewContent: {
+    flexGrow: 1,
+  },
+});

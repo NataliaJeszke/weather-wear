@@ -9,7 +9,7 @@ import { WardrobeButton } from "@/components/common/WardrobeButton/WardrobeButto
 import { ImageSweater } from "@/components/common/Image/ImageSweater";
 
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
-import { LinearGradient } from "expo-linear-gradient";
+import CustomLinearGradient from "@/components/common/CustomLinearGradient/CustomLinearGradient";
 import { theme } from "@/theme";
 import { ClothingItem } from "@/utils/types";
 
@@ -52,12 +52,7 @@ export const ClothesList = ({
         data={clothes}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
-          <LinearGradient
-            colors={["#40e0d0", "#F98866", "#ff0080"]}
-            start={{ x: 0, y: 0 }}
-            end={{ x: 1, y: 0 }}
-            style={styles.linearGradient}
-          >
+          <CustomLinearGradient style={styles.linearGradient}>
             <View
               style={styles.clothingItem}
               key={`${item.id}-${new Date().getTime()}`}
@@ -104,7 +99,7 @@ export const ClothesList = ({
                 </View>
               </View>
             </View>
-          </LinearGradient>
+          </CustomLinearGradient>
         )}
       />
     </View>

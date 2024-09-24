@@ -6,10 +6,10 @@ import useWardrobeStore from "@/store/useWardrobeStore";
 import { FavouritesList } from "./FavouritesList";
 import { WardrobeButton } from "../common/WardrobeButton/WardrobeButton";
 import { ImageSweater } from "../common/Image/ImageSweater";
+import CustomLinearGradient from "@/components/common/CustomLinearGradient/CustomLinearGradient";
 import { ClothingItem } from "@/utils/types";
 
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
-import { LinearGradient } from "expo-linear-gradient";
 
 type AddOutfitsProps = {
   favourites: ClothingItem[];
@@ -67,18 +67,13 @@ export default function AddOutfits({ favourites }: AddOutfitsProps) {
                     {currentOutfit[index] ? (
                       <ImageSweater uri={currentOutfit[index].uri} />
                     ) : (
-                      <LinearGradient
-                        colors={["#40e0d0", "#F98866", "#ff0080"]}
-                        start={{ x: 0, y: 0 }}
-                        end={{ x: 1, y: 0 }}
-                        style={styles.linearGradient}
-                      >
+                      <CustomLinearGradient style={styles.linearGradient}>
                         <MaterialCommunityIcons
                           name="hanger"
                           size={40}
-                          color="black"
+                          color="white"
                         />
-                      </LinearGradient>
+                      </CustomLinearGradient>
                     )}
                   </View>
                 ))}
@@ -104,7 +99,6 @@ export default function AddOutfits({ favourites }: AddOutfitsProps) {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#fff",
     padding: 5,
   },
   modalContainer: {
@@ -138,6 +132,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   linearGradient: {
+    flex: 0,
     borderRadius: 5,
     padding: 5,
   },

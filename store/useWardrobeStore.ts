@@ -8,6 +8,7 @@ import { ClothingItem, Outfit } from "@/utils/types";
 
 interface WardrobeState {
   outfits: ClothingItem[][];
+  outfitTitles: string[];
   clothes: ClothingItem[];
   favourites: Outfit[];
   addClothing: (clothingItem: ClothingItem) => Promise<void>;
@@ -17,6 +18,8 @@ interface WardrobeState {
   createOutfit: (clothingItem: ClothingItem[]) => void;
   setIsFavourite: (id: number) => void;
   removeOutfit: (index: number) => void;
+  addOutfitTitle: (index: number, title: string) => void;
+  clearFavourites: () => void;
 }
 
 const saveImageToFileSystem = async (uri: string) => {
@@ -38,6 +41,7 @@ const useWardrobeStore = create(
       clothes: [],
       favourites: [],
       outfits: [],
+      outfitTitles: [],
 
       addClothing: async (clothingItem: ClothingItem) => {
         if (clothingItem.uri) {
@@ -54,6 +58,7 @@ const useWardrobeStore = create(
       removeClothing: (id: number) =>
         set((state) => ({
           clothes: state.clothes.filter((item) => item.id !== id),
+          favourites: state.favourites.filter((item) => item.id !== id),
         })),
 
       setIsFavourite: (id: number) =>
@@ -76,11 +81,20 @@ const useWardrobeStore = create(
           favourites: state.favourites.filter((item) => item.id !== id),
         })),
 
-      createOutfit: (clothingItems: ClothingItem[]) => {
-        return set((state) => ({
+      clearFavourites: () => set({ favourites: [] }),
+
+      createOutfit: (clothingItems: ClothingItem[]) =>
+        set((state) => ({
           outfits: [...state.outfits, clothingItems],
-        }));
-      },
+          outfitTitles: [...state.outfitTitles, ""],
+        })),
+
+      addOutfitTitle: (index: number, title: string) =>
+        set((state) => {
+          const updatedTitles = [...state.outfitTitles];
+          updatedTitles[index] = title;
+          return { outfitTitles: updatedTitles };
+        }),
 
       editOutfit: (oldItemId: string, newClothingItem?: ClothingItem) => {
         set((state) => {
@@ -98,6 +112,9 @@ const useWardrobeStore = create(
         set((state) => ({
           outfits: state.outfits.filter(
             (_, outfitIndex) => outfitIndex !== index,
+          ),
+          outfitTitles: state.outfitTitles.filter(
+            (_, titleIndex) => titleIndex !== index,
           ),
         })),
     }),

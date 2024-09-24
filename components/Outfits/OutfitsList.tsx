@@ -1,40 +1,45 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
   StyleSheet,
   TouchableOpacity,
   ScrollView,
+  TextInput,
 } from "react-native";
 
 import useWardrobeStore from "@/store/useWardrobeStore";
 
 import { ClothingItem } from "@/utils/types";
 
-import { ImageSweater } from "../common/Image/ImageSweater";
-
+import { ImageSweater } from "@/components/common/Image/ImageSweater";
+import CustomLinearGradient from "@/components/common/CustomLinearGradient/CustomLinearGradient";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { theme } from "@/theme";
-import { LinearGradient } from "expo-linear-gradient";
 
 type OutfitsListProps = {
   outfits: ClothingItem[][];
 };
 
 export default function OutfitsList({ outfits }: OutfitsListProps) {
-  const { removeOutfit } = useWardrobeStore();
+  const { removeOutfit, addOutfitTitle, outfitTitles } = useWardrobeStore();
+
+  const handleNameChange = (text: string, index: number) => {
+    addOutfitTitle(index, text);
+  };
+
   return (
     <ScrollView contentContainerStyle={styles.scrollContainer}>
       {outfits.map((outfit, index) => (
-        <LinearGradient
-          colors={["#40e0d0", "#F98866", "#ff0080"]}
-          start={{ x: 0, y: 0 }}
-          end={{ x: 1, y: 0 }}
-          style={styles.linearGradient}
-        >
-          <View key={index} style={styles.shelfContainer}>
+        <CustomLinearGradient style={styles.linearGradient}>
+          <View key={`${index}-${Date.now()}`} style={styles.shelfContainer}>
             <View style={styles.shelf_header}>
-              <Text style={styles.outfitTitle}>Outfit {index + 1}</Text>
+              <TextInput
+                style={styles.outfitTitle}
+                placeholder={`Outfit ${index + 1}`}
+                value={outfitTitles[index] || ""}
+                onChangeText={(text) => handleNameChange(text, index)}
+              />
               <TouchableOpacity onPress={() => removeOutfit(index)}>
                 <MaterialIcons
                   name="delete-outline"
@@ -45,13 +50,16 @@ export default function OutfitsList({ outfits }: OutfitsListProps) {
             </View>
             <View style={styles.outfitShelf}>
               {outfit.map((item, itemIndex) => (
-                <View key={itemIndex} style={styles.itemContainer}>
+                <View
+                  key={`${itemIndex}-${Date.now()}`}
+                  style={styles.itemContainer}
+                >
                   <ImageSweater uri={item.uri} />
                 </View>
               ))}
             </View>
           </View>
-        </LinearGradient>
+        </CustomLinearGradient>
       ))}
     </ScrollView>
   );

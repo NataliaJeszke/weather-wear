@@ -18,7 +18,6 @@ export const ClothesDisplay: React.FC<ClothesDisplayProps> = ({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
     alignItems: "center",
   },
   temperature: {

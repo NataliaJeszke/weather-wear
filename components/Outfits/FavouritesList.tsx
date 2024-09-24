@@ -5,7 +5,7 @@ import { ImageSweater } from "@/components/common/Image/ImageSweater";
 
 import { ClothingItem } from "@/utils/types";
 
-import { LinearGradient } from "expo-linear-gradient";
+import CustomLinearGradient from "@/components/common/CustomLinearGradient/CustomLinearGradient";
 
 type FavouritesListProps = {
   favourites: ClothingItem[];
@@ -22,12 +22,7 @@ export const FavouritesList = ({
         {favourites.map((item) => (
           <TouchableOpacity key={item.id} onPress={() => onSelect(item)}>
             <View key={item.id} style={styles.page}>
-              <LinearGradient
-                colors={["#40e0d0", "#F98866", "#ff0080"]}
-                start={{ x: 0, y: 0 }}
-                end={{ x: 1, y: 0 }}
-                style={styles.linearGradient}
-              >
+              <CustomLinearGradient style={styles.linearGradient}>
                 <View style={styles.clothingItem}>
                   <ImageSweater uri={item.uri} />
                   <View style={styles.clothingInfo}>
@@ -36,7 +31,7 @@ export const FavouritesList = ({
                     <Text>{item.weatherSuitability}</Text>
                   </View>
                 </View>
-              </LinearGradient>
+              </CustomLinearGradient>
             </View>
           </TouchableOpacity>
         ))}

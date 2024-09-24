@@ -1,23 +1,26 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+
+import Ionicons from "@expo/vector-icons/Ionicons";
+
 import * as Animatable from "react-native-animatable";
 import CustomLinearGradient from "@/components/common/CustomLinearGradient/CustomLinearGradient";
 
-const Hanger = () => {
+const Tshirt = () => {
   return (
     <View style={styles.container}>
       <CustomLinearGradient style={styles.gradientContainer}>
         <Animatable.View
           animation={{
-            0: { transform: [{ rotate: "-30deg" }] },
-            0.5: { transform: [{ rotate: "30deg" }] },
-            1: { transform: [{ rotate: "-30deg" }] },
+            0: { transform: [{ rotate: "-30deg" }, { scale: 1 }] },
+            0.5: { transform: [{ rotate: "30deg" }, { scale: 1.5 }] },
+            1: { transform: [{ rotate: "-30deg" }, { scale: 1 }] },
           }}
           iterationCount="infinite"
-          duration={1500}
+          duration={2000}
+          easing="ease-in-out"
         >
-          <MaterialCommunityIcons name="hanger" size={150} color="white" />
+          <Ionicons name="shirt-outline" size={150} color="white" />
         </Animatable.View>
       </CustomLinearGradient>
     </View>
@@ -26,8 +29,6 @@ const Hanger = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    paddingTop: 100,
     alignItems: "center",
   },
   gradientContainer: {
@@ -43,4 +44,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Hanger;
+export default Tshirt;
