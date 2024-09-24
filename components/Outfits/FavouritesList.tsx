@@ -20,9 +20,9 @@ export const FavouritesList = ({
     <View style={styles.galleryContainer}>
       <PagerView style={styles.pagerView}>
         {favourites.map((item) => (
-          <TouchableOpacity key={item.id} onPress={() => onSelect(item)}>
-            <View key={item.id} style={styles.page}>
-              <CustomLinearGradient style={styles.linearGradient}>
+          <CustomLinearGradient style={styles.linearGradient}>
+            <TouchableOpacity key={item.id} onPress={() => onSelect(item)}>
+              <View key={item.id} style={styles.page}>
                 <View style={styles.clothingItem}>
                   <ImageSweater uri={item.uri} />
                   <View style={styles.clothingInfo}>
@@ -31,9 +31,9 @@ export const FavouritesList = ({
                     <Text>{item.weatherSuitability}</Text>
                   </View>
                 </View>
-              </CustomLinearGradient>
-            </View>
-          </TouchableOpacity>
+              </View>
+            </TouchableOpacity>
+          </CustomLinearGradient>
         ))}
       </PagerView>
     </View>
@@ -48,16 +48,16 @@ const styles = StyleSheet.create({
   },
   pagerView: {
     flex: 1,
-    height: 200,
+    height: 107,
   },
   page: {
     justifyContent: "center",
     alignItems: "center",
   },
   linearGradient: {
+    flex: 0,
     borderRadius: 5,
     padding: 1,
-    marginBottom: 10,
     marginTop: 5,
     marginHorizontal: 5,
   },

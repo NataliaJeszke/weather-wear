@@ -30,7 +30,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
           }}
         />
         <TouchableOpacity onPress={onSearchSubmit}>
-          <FontAwesome5 name="search-location" size={24} color="#ff0080" />
+          <FontAwesome5 name="search-location" size={24} color="white" />
         </TouchableOpacity>
       </View>
     </View>
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     borderWidth: 1,
-    borderColor: "#ff0080",
+    borderColor: "white",
     borderRadius: 5,
     padding: 5,
     marginBottom: 20,
@@ -56,5 +56,7 @@ const styles = StyleSheet.create({
     flex: 1,
     height: 40,
     paddingHorizontal: 10,
+    color: "white",
+    fontWeight: "bold",
   },
 });

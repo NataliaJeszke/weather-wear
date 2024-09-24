@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, Button, Modal, StyleSheet } from "react-native";
+import { View, Text, Modal, StyleSheet } from "react-native";
 
 import useWardrobeStore from "@/store/useWardrobeStore";
 
@@ -89,7 +89,11 @@ export default function AddOutfits({ favourites }: AddOutfitsProps) {
               disabled={currentOutfit.length < 1}
             />
 
-            <Button title="Cancel" onPress={handleCloseModal} />
+            <WardrobeButton
+              title="Cancel"
+              type="cancel"
+              onPress={handleCloseModal}
+            />
           </View>
         </View>
       </Modal>
@@ -112,6 +116,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     padding: 20,
     borderRadius: 10,
+    gap: 10,
   },
   title: {
     fontSize: 20,
@@ -123,6 +128,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     marginBottom: 20,
+    marginTop: 20,
   },
   hangerSlot: {
     width: 70,
