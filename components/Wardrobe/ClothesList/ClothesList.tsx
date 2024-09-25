@@ -67,7 +67,7 @@ export const ClothesList = ({
                       <MaterialIcons
                         name="favorite"
                         size={24}
-                        color={theme.colors.secondary}
+                        color={theme.colors.primary}
                       />
                     </TouchableOpacity>
                   ) : (
@@ -75,7 +75,7 @@ export const ClothesList = ({
                       <MaterialIcons
                         name="favorite-outline"
                         size={24}
-                        color={theme.colors.secondary}
+                        color="white"
                       />
                     </TouchableOpacity>
                   )}
@@ -83,7 +83,7 @@ export const ClothesList = ({
                     <MaterialIcons
                       name="delete-outline"
                       size={24}
-                      color={theme.colors.secondary}
+                      color="white"
                     />
                   </TouchableOpacity>
                 </View>
@@ -106,9 +106,11 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     flexWrap: "wrap",
     gap: 5,
-    backgroundColor: "#fff",
+    backgroundColor: "rgba(255, 255, 255, 0.58)",
     borderRadius: 5,
-    padding: 5,
+    padding: 10,
+    borderWidth: 1,
+    borderColor: "rgba(255, 255, 255, 0.79)",
     alignItems: "center",
   },
   gridItem: {

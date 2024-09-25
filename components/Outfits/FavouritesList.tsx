@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
   },
   pagerView: {
     flex: 1,
-    height: 107,
+    height: 97,
   },
   page: {
     justifyContent: "center",

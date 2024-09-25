@@ -1,10 +1,11 @@
-import { View, Image, StyleSheet } from "react-native";
+import { View, Image, StyleSheet, ViewStyle } from "react-native";
 
 type Props = {
   uri?: string;
+  style?: ViewStyle;
 };
 
-export const ImageSweater = ({ uri }: Props) => {
+export const ImageSweater = ({ uri, style }: Props) => {
   return (
     <View>
       <Image
@@ -18,7 +19,7 @@ export const ImageSweater = ({ uri }: Props) => {
 const styles = StyleSheet.create({
   itemImage: {
     borderRadius: 10,
-    width: 80,
-    height: 80,
+    width: 70,
+    height: 70,
   },
 });
