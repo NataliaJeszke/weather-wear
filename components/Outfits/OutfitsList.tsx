@@ -30,16 +30,15 @@ export default function OutfitsList({ outfits }: OutfitsListProps) {
     <ScrollView contentContainerStyle={styles.scrollContainer}>
       <View style={styles.outfitRow}>
         {outfits.map((outfit, index) => (
-          <View
-            key={`${index}-${Date.now()}`}
-            style={styles.squareWindowContainer}
-          >
+          <View key={index} style={styles.squareWindowContainer}>
             <View style={styles.shelfHeader}>
               <TextInput
                 style={styles.outfitTitle}
                 placeholder={`Outfit ${index + 1}`}
                 value={outfitTitles[index] || ""}
                 onChangeText={(text) => handleNameChange(text, index)}
+                onFocus={() => {}}
+                onBlur={() => {}}
               />
               <TouchableOpacity onPress={() => removeOutfit(index)}>
                 <MaterialIcons name="delete-outline" size={20} color="white" />
@@ -79,7 +78,7 @@ const styles = StyleSheet.create({
     height: windowSize,
     backgroundColor: "rgba(255, 255, 255, 0.58)",
     borderRadius: 16,
-    padding: 10,
+    padding: 6,
     borderWidth: 1,
     borderColor: "rgba(255, 255, 255, 0.79)",
   },

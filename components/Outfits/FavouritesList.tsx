@@ -20,9 +20,15 @@ export const FavouritesList = ({
     <View style={styles.galleryContainer}>
       <PagerView style={styles.pagerView}>
         {favourites.map((item) => (
-          <CustomLinearGradient style={styles.linearGradient}>
+          <CustomLinearGradient
+            key={`${item.id}-${new Date().toISOString()}`}
+            style={styles.linearGradient}
+          >
             <TouchableOpacity key={item.id} onPress={() => onSelect(item)}>
-              <View key={item.id + 1} style={styles.page}>
+              <View
+                key={`${item.id}-${new Date().toISOString()}`}
+                style={styles.page}
+              >
                 <View style={styles.clothingItem}>
                   <ImageSweater uri={item.uri} />
                   <View style={styles.clothingInfo}>
