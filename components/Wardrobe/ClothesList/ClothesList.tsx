@@ -1,17 +1,22 @@
 import {
   FlatList,
   View,
-  Text,
   TouchableOpacity,
   StyleSheet,
+  Dimensions,
 } from "react-native";
+import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+
 import { WardrobeButton } from "@/components/common/WardrobeButton/WardrobeButton";
 import { ImageSweater } from "@/components/common/Image/ImageSweater";
-
-import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import CustomLinearGradient from "@/components/common/CustomLinearGradient/CustomLinearGradient";
-import { theme } from "@/theme";
+
 import { ClothingItem } from "@/utils/types";
+
+import { theme } from "@/theme";
+
+const numColumns = 3;
+const itemWidth = (Dimensions.get("window").width - 40) / numColumns;
 
 type ClothesListProps = {
   clothes: ClothingItem[];
@@ -40,9 +45,6 @@ export const ClothesList = ({
   const handleRemoveFavourite = (item: ClothingItem) => {
     removeFavourite(item.id);
     setIsFavourite(item.id);
-
-    console.log("removeFavourite", item.id);
-    console.log(favourites);
   };
 
   return (
@@ -51,24 +53,12 @@ export const ClothesList = ({
       <FlatList
         data={clothes}
         keyExtractor={(item) => item.id.toString()}
+        numColumns={numColumns}
         renderItem={({ item }) => (
-          <CustomLinearGradient style={styles.linearGradient}>
-            <View
-              style={styles.clothingItem}
-              key={`${item.id}-${new Date().getTime()}`}
-            >
-              <ImageSweater uri={item.uri} />
-              <View style={styles.clothingInfo}>
-                <View>
-                  <Text style={styles.title}>{item.name}</Text>
-                </View>
-                <View style={styles.description}>
-                  <Text>Type: {item.type},</Text>
-                  <Text>Color: {item.color},</Text>
-                  <Text>Size: {item.size},</Text>
-                  <Text>Material: {item.material},</Text>
-                  <Text>Weather: {item.weatherSuitability}</Text>
-                </View>
+          <View style={styles.gridItem}>
+            <CustomLinearGradient style={styles.linearGradient}>
+              <View style={styles.clothingItem}>
+                <ImageSweater uri={item.uri} />
                 <View style={styles.btn_container}>
                   {item.isFavourite ? (
                     <TouchableOpacity
@@ -98,8 +88,8 @@ export const ClothesList = ({
                   </TouchableOpacity>
                 </View>
               </View>
-            </View>
-          </CustomLinearGradient>
+            </CustomLinearGradient>
+          </View>
         )}
       />
     </View>
@@ -111,37 +101,29 @@ const styles = StyleSheet.create({
     width: "100%",
     borderRadius: 5,
     padding: 1,
-    marginBottom: 10,
-    marginTop: 5,
   },
   clothingItem: {
-    flexDirection: "row",
+    flexDirection: "column",
     flexWrap: "wrap",
-    gap: 10,
+    gap: 5,
     backgroundColor: "#fff",
     borderRadius: 5,
-    padding: 10,
+    padding: 5,
+    alignItems: "center",
+  },
+  gridItem: {
+    flex: 1,
+    margin: 10,
+    maxWidth: itemWidth,
   },
   clothingListContainer: {
     padding: 5,
     flex: 1,
   },
-  clothingInfo: {
-    flex: 1,
-    flexDirection: "column",
-    justifyContent: "space-between",
-  },
-  title: {
-    fontWeight: "800",
-  },
-  description: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    gap: 10,
-  },
   btn_container: {
     flexDirection: "row",
-    justifyContent: "flex-end",
-    gap: 15,
+    justifyContent: "space-around",
+    width: "100%",
+    marginTop: 10,
   },
 });
