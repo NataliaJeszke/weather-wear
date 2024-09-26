@@ -20,10 +20,7 @@ export const FavouritesList = ({
     <View style={styles.galleryContainer}>
       <PagerView style={styles.pagerView}>
         {favourites.map((item) => (
-          <CustomLinearGradient
-            key={`${item.id}-${new Date().toISOString()}`}
-            style={styles.linearGradient}
-          >
+          <CustomLinearGradient key={item.id} style={styles.linearGradient}>
             <TouchableOpacity key={item.id} onPress={() => onSelect(item)}>
               <View
                 key={`${item.id}-${new Date().toISOString()}`}

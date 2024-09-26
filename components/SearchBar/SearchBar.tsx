@@ -15,6 +15,12 @@ export const SearchBar: React.FC<SearchBarProps> = ({
   onSearchSubmit,
   onClearSearch,
 }) => {
+  const handleSearchSubmit = () => {
+    const trimmedQuery = searchQuery.trim();
+    onSearchChange(trimmedQuery);
+    onSearchSubmit();
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.searchContainer}>
@@ -28,8 +34,9 @@ export const SearchBar: React.FC<SearchBarProps> = ({
               onClearSearch();
             }
           }}
+          onEndEditing={handleSearchSubmit}
         />
-        <TouchableOpacity onPress={onSearchSubmit}>
+        <TouchableOpacity onPress={handleSearchSubmit}>
           <FontAwesome5 name="search-location" size={24} color="white" />
         </TouchableOpacity>
       </View>

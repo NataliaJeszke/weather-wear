@@ -1,4 +1,7 @@
-import { View, Text, StyleSheet } from "react-native";
+import useWardrobeStore from "@/store/useWardrobeStore";
+import { suggestClothesByWeather } from "@/utils/suggestClothesByWeather";
+import { View, Text, StyleSheet, FlatList } from "react-native";
+import { ImageSweater } from "../common/Image/ImageSweater";
 
 interface ClothesDisplayProps {
   temperature: number;
@@ -7,10 +10,25 @@ interface ClothesDisplayProps {
 export const ClothesDisplay: React.FC<ClothesDisplayProps> = ({
   temperature,
 }) => {
+  const { clothes } = useWardrobeStore();
+
+  const suitableClothes = suggestClothesByWeather(temperature, clothes);
+
   return (
     <View style={styles.container}>
       <Text style={styles.temperature}>{temperature}°C</Text>
-      <Text style={styles.clothes}>Wear a T-Shirt and Shorts</Text>
+      <FlatList
+        data={suitableClothes}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
+          <>
+            <Text key={item.id}>
+              {item.name} - {item.weatherSuitability}
+            </Text>
+            <ImageSweater uri={item.uri} />
+          </>
+        )}
+      />
     </View>
   );
 };
