@@ -1,7 +1,7 @@
 export enum ClothingType {
   Top = "top",
   Bottom = "bottom",
-  Outerwear = "outwear",
+  Outwear = "outwear",
 }
 
 export enum WeatherSuitability {
