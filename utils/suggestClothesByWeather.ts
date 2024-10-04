@@ -38,16 +38,21 @@ export const suggestClothesByWeather = (
   const bottomItems = filteredClothes.filter(
     (item) => item.type === ClothingType.Bottom,
   );
+  const accessoryItems = filteredClothes.filter(
+    (item) => item.type === ClothingType.Accessory,
+  );
 
   const suggestions: ClothingItem[] = [];
 
   const randomOutwear = getRandomItem(outwearItems);
   const randomTop = getRandomItem(topItems);
   const randomBottom = getRandomItem(bottomItems);
+  const randomAccessory = getRandomItem(accessoryItems);
 
   if (randomOutwear) suggestions.push(randomOutwear);
   if (randomTop) suggestions.push(randomTop);
   if (randomBottom) suggestions.push(randomBottom);
+  if (randomAccessory) suggestions.push(randomAccessory);
 
   return suggestions;
 };
