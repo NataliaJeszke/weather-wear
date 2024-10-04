@@ -94,7 +94,7 @@ export default function App() {
   };
 
   return (
-    <CustomLinearGradient style={undefined}>
+    <CustomLinearGradient>
       <View style={styles.container}>
         <View style={{ height: 200, width: 350 }}>
           <SearchBar
