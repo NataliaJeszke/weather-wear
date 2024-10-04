@@ -5,7 +5,7 @@ import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 interface SearchBarProps {
   searchQuery: string;
   onSearchChange: (text: string) => void;
-  onSearchSubmit: () => void;
+  onSearchSubmit: (query: string) => void; // Zmiana: przekazywanie zapytania jako argument
   onClearSearch: () => void;
 }
 
@@ -16,9 +16,11 @@ export const SearchBar: React.FC<SearchBarProps> = ({
   onClearSearch,
 }) => {
   const handleSearchSubmit = () => {
-    const trimmedQuery = searchQuery.trim();
-    onSearchChange(trimmedQuery);
-    onSearchSubmit();
+    const trimmedQuery = searchQuery.trim(); // Przycinanie spacji
+    if (trimmedQuery.length > 0) {
+      onSearchChange(trimmedQuery); // Aktualizacja zapytania
+      onSearchSubmit(trimmedQuery); // Wykonanie wyszukiwania z przyciętym tekstem
+    }
   };
 
   return (
@@ -31,10 +33,9 @@ export const SearchBar: React.FC<SearchBarProps> = ({
           onChangeText={(text) => {
             onSearchChange(text);
             if (text.length === 0) {
-              onClearSearch();
+              onClearSearch(); // Czyść wyszukiwanie, gdy tekst jest pusty
             }
           }}
-          onEndEditing={handleSearchSubmit}
         />
         <TouchableOpacity onPress={handleSearchSubmit}>
           <FontAwesome5 name="search-location" size={24} color="white" />

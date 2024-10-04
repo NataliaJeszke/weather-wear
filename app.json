@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "weather-wear",
+    "name": "WeatherWear",
     "slug": "weather-wear",
     "scheme": "weather-wear",
     "version": "1.0.0",
@@ -13,13 +13,15 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.anonymous.weather-wear"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.anonymous.weatherwear"
     },
     "web": {
       "favicon": "./assets/favicon.png",
