@@ -41,6 +41,12 @@ export const suggestClothesByWeather = (
   const accessoryItems = filteredClothes.filter(
     (item) => item.type === ClothingType.Accessory,
   );
+  const hatItems = filteredClothes.filter(
+    (item) => item.type === ClothingType.Hat,
+  );
+  const shoesItems = filteredClothes.filter(
+    (item) => item.type === ClothingType.Shoes,
+  );
 
   const suggestions: ClothingItem[] = [];
 
@@ -48,11 +54,15 @@ export const suggestClothesByWeather = (
   const randomTop = getRandomItem(topItems);
   const randomBottom = getRandomItem(bottomItems);
   const randomAccessory = getRandomItem(accessoryItems);
+  const randomHat = getRandomItem(hatItems);
+  const randomShoes = getRandomItem(shoesItems);
 
   if (randomOutwear) suggestions.push(randomOutwear);
   if (randomTop) suggestions.push(randomTop);
   if (randomBottom) suggestions.push(randomBottom);
   if (randomAccessory) suggestions.push(randomAccessory);
+  if (randomHat) suggestions.push(randomHat);
+  if (randomShoes) suggestions.push(randomShoes);
 
   return suggestions;
 };
