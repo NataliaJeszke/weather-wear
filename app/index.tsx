@@ -10,6 +10,7 @@ import CustomLinearGradient from "@/components/common/CustomLinearGradient/Custo
 import Tshirt from "@/components/common/Tshirt/Tshirt";
 import useWardrobeStore from "@/store/useWardrobeStore";
 import { suggestClothesByWeather } from "@/utils/suggestClothesByWeather";
+import { Refresh } from "@/components/common/Refresh/Refresh";
 
 export default function App() {
   const [searchQuery, setSearchQuery] = useState<string>("");
@@ -44,6 +45,13 @@ export default function App() {
   const handleClearSearch = () => {
     setSearchQuery("");
     setTemperature(null);
+  };
+
+  const handleRefresh = () => {
+    if (temperature !== null) {
+      const suggestedClothes = suggestClothesByWeather(temperature, clothes);
+      setSuitableClothes(suggestedClothes);
+    }
   };
 
   useEffect(() => {
@@ -98,10 +106,13 @@ export default function App() {
         </View>
         <View style={styles.weatherContainer}>
           {temperature !== null ? (
-            <ClothesDisplay
-              temperature={temperature}
-              clothes={suitableClothes}
-            />
+            <>
+              <ClothesDisplay
+                temperature={temperature}
+                clothes={suitableClothes}
+              />
+              <Refresh onRefresh={handleRefresh} />
+            </>
           ) : (
             <Tshirt />
           )}
