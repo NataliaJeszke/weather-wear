@@ -1,5 +1,5 @@
 /* eslint-disable import/no-unresolved */
-import { Tabs } from "expo-router";
+import { Tabs, SplashScreen } from "expo-router";
 
 import AntDesign from "@expo/vector-icons/AntDesign";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
@@ -8,6 +8,8 @@ import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { theme } from "@/theme";
 
 export default function Layout() {
+  SplashScreen.hideAsync();
+
   return (
     <Tabs screenOptions={{ tabBarActiveTintColor: theme.colors.primary }}>
       <Tabs.Screen

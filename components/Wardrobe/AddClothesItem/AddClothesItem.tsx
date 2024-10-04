@@ -92,28 +92,36 @@ export const AddClothesItem = ({
             <Text style={styles.closeButtonText}>X</Text>
           </TouchableOpacity>
           <ScrollView contentContainerStyle={styles.scrollViewContent}>
-            <Text>Add Clothes Item</Text>
-            <TouchableOpacity activeOpacity={0.8} onPress={handleChooseImage}>
-              <ImageSweater uri={imageUri} />
+            <Text style={styles.title}>Add Clothes Item</Text>
+            <TouchableOpacity
+              activeOpacity={0.8}
+              onPress={handleChooseImage}
+              style={styles.imageButton}
+            >
+              <ImageSweater uri={imageUri} style={styles.imagePlaceholder} />
             </TouchableOpacity>
             <Controller
               control={control}
               name="name"
               render={({ field: { onChange, onBlur, value } }) => (
-                <TextInput
-                  placeholder="Name"
-                  onBlur={onBlur}
-                  onChangeText={onChange}
-                  value={value}
-                />
+                <>
+                  <Text style={styles.label}>Name</Text>
+                  <TextInput
+                    style={styles.input}
+                    placeholder="Name"
+                    onBlur={onBlur}
+                    onChangeText={onChange}
+                    value={value}
+                  />
+                </>
               )}
             />
             <Controller
               control={control}
               name="type"
               render={({ field: { onChange, value } }) => (
-                <View>
-                  <Text>Type</Text>
+                <View style={styles.radioGroup}>
+                  <Text style={styles.label}>Type</Text>
                   {Object.values(ClothingType).map((option, index) =>
                     RadioButton(option, value, onChange, index),
                   )}
@@ -124,44 +132,56 @@ export const AddClothesItem = ({
               control={control}
               name="color"
               render={({ field: { onChange, onBlur, value } }) => (
-                <TextInput
-                  placeholder="Color"
-                  onBlur={onBlur}
-                  onChangeText={onChange}
-                  value={value}
-                />
+                <>
+                  <Text style={styles.label}>Color</Text>
+                  <TextInput
+                    style={styles.input}
+                    placeholder="Color"
+                    onBlur={onBlur}
+                    onChangeText={onChange}
+                    value={value}
+                  />
+                </>
               )}
             />
             <Controller
               control={control}
               name="material"
               render={({ field: { onChange, onBlur, value } }) => (
-                <TextInput
-                  placeholder="Material"
-                  onBlur={onBlur}
-                  onChangeText={onChange}
-                  value={value}
-                />
+                <>
+                  <Text style={styles.label}>Material</Text>
+                  <TextInput
+                    style={styles.input}
+                    placeholder="Material"
+                    onBlur={onBlur}
+                    onChangeText={onChange}
+                    value={value}
+                  />
+                </>
               )}
             />
             <Controller
               control={control}
               name="size"
               render={({ field: { onChange, onBlur, value } }) => (
-                <TextInput
-                  placeholder="Size"
-                  onBlur={onBlur}
-                  onChangeText={onChange}
-                  value={value}
-                />
+                <>
+                  <Text style={styles.label}>Size</Text>
+                  <TextInput
+                    style={styles.input}
+                    placeholder="Size"
+                    onBlur={onBlur}
+                    onChangeText={onChange}
+                    value={value}
+                  />
+                </>
               )}
             />
             <Controller
               control={control}
               name="weatherSuitability"
               render={({ field: { onChange, value } }) => (
-                <View>
-                  <Text>Weather Suitability</Text>
+                <View style={styles.radioGroup}>
+                  <Text style={styles.label}>Weather Suitability</Text>
                   {Object.values(WeatherSuitability).map((option, index) =>
                     RadioButton(option, value, onChange, index),
                   )}
@@ -182,34 +202,73 @@ export const AddClothesItem = ({
 const styles = StyleSheet.create({
   modalOverlay: {
     flex: 1,
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
+    backgroundColor: "rgba(0, 0, 0, 0.6)",
     justifyContent: "center",
     alignItems: "center",
   },
   modalContent: {
-    backgroundColor: "white",
+    backgroundColor: "#fff",
     borderRadius: 20,
     padding: 20,
     width: "90%",
     maxHeight: "80%",
     shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
     shadowRadius: 4,
     elevation: 5,
   },
   closeButton: {
     alignSelf: "flex-end",
     padding: 10,
+    backgroundColor: "#f5f5f5",
+    borderRadius: 50,
   },
   closeButtonText: {
     fontSize: 18,
-    color: "#000",
+    color: "#ff5a5f",
   },
   scrollViewContent: {
     flexGrow: 1,
+    paddingBottom: 20,
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: "600",
+    color: "#333",
+    textAlign: "center",
+    marginBottom: 20,
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: "#ccc",
+    borderRadius: 10,
+    padding: 10,
+    marginVertical: 10,
+    backgroundColor: "#f9f9f9",
+  },
+  label: {
+    fontSize: 16,
+    color: "#666",
+    marginBottom: 5,
+    marginTop: 10,
+  },
+  radioGroup: {
+    marginBottom: 15,
+  },
+  imageButton: {
+    alignSelf: "center",
+    backgroundColor: "#eee",
+    padding: 10,
+    borderRadius: 10,
+    marginBottom: 20,
+  },
+  imagePlaceholder: {
+    width: 100,
+    height: 100,
+    backgroundColor: "#ddd",
+    borderRadius: 50,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
