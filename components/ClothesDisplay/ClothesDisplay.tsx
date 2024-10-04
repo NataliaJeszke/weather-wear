@@ -1,24 +1,21 @@
-import useWardrobeStore from "@/store/useWardrobeStore";
-import { suggestClothesByWeather } from "@/utils/suggestClothesByWeather";
+import React from "react";
 import { View, Text, StyleSheet, FlatList } from "react-native";
 import { ImageSweater } from "../common/Image/ImageSweater";
 
 interface ClothesDisplayProps {
   temperature: number;
+  clothes: any[];
 }
 
 export const ClothesDisplay: React.FC<ClothesDisplayProps> = ({
   temperature,
+  clothes,
 }) => {
-  const { clothes } = useWardrobeStore();
-
-  const suitableClothes = suggestClothesByWeather(temperature, clothes);
-
   return (
     <View style={styles.container}>
       <Text style={styles.temperature}>{temperature}°C</Text>
       <FlatList
-        data={suitableClothes}
+        data={clothes}
         keyExtractor={(item) => item.id.toString()}
         numColumns={2}
         renderItem={({ item }) => (

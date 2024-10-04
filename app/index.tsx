@@ -1,20 +1,24 @@
 import React, { useState, useEffect } from "react";
 import { StatusBar, StyleSheet, View, Alert } from "react-native";
-import { SearchBar } from "../components/SearchBar/SearchBar";
-import { ClothesDisplay } from "../components/ClothesDisplay/ClothesDisplay";
+import { SearchBar } from "@/components/SearchBar/SearchBar";
+import { ClothesDisplay } from "@/components/ClothesDisplay/ClothesDisplay";
 
-import { useApi } from "../hooks/useApi";
-import { useGeocode } from "../hooks/useGeocode";
+import { useApi } from "@/hooks/useApi";
+import { useGeocode } from "@/hooks/useGeocode";
 
 import CustomLinearGradient from "@/components/common/CustomLinearGradient/CustomLinearGradient";
 import Tshirt from "@/components/common/Tshirt/Tshirt";
+import useWardrobeStore from "@/store/useWardrobeStore";
+import { suggestClothesByWeather } from "@/utils/suggestClothesByWeather";
 
 export default function App() {
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [temperature, setTemperature] = useState<number | null>(null);
+  const [suitableClothes, setSuitableClothes] = useState<any[]>([]); // Dodano do przechowywania sugerowanych ubrań
 
   const { fetchWeatherData, weatherData } = useApi();
   const { coordinates, fetchCoordinates } = useGeocode();
+  const { clothes } = useWardrobeStore();
 
   const showAlert = () => {
     Alert.alert(
@@ -56,6 +60,13 @@ export default function App() {
     }
   }, [weatherData]);
 
+  useEffect(() => {
+    if (temperature !== null) {
+      const suggestedClothes = suggestClothesByWeather(temperature, clothes);
+      setSuitableClothes(suggestedClothes);
+    }
+  }, [temperature, clothes]);
+
   const getCurrentTemperature = (data: any) => {
     if (data && data.hourly && data.hourly.temperature_2m && data.hourly.time) {
       const times = data.hourly.time;
@@ -87,7 +98,10 @@ export default function App() {
         </View>
         <View style={styles.weatherContainer}>
           {temperature !== null ? (
-            <ClothesDisplay temperature={temperature} />
+            <ClothesDisplay
+              temperature={temperature}
+              clothes={suitableClothes}
+            />
           ) : (
             <Tshirt />
           )}
