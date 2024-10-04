@@ -21,7 +21,7 @@ export default function App() {
       "Location is empty",
       "Write down your location.",
       [{ text: "OK", onPress: () => console.log("OK Pressed") }],
-      { cancelable: false }
+      { cancelable: false },
     );
   };
 

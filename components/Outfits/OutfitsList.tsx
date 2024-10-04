@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "flex-start",
-    gap: 20,
+    gap: 10,
   },
   squareWindowContainer: {
     width: windowSize,
@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
   outfitGrid: {
     flexDirection: "row",
     flexWrap: "wrap",
-    justifyContent: "space-between",
+    justifyContent: "space-around",
     width: "100%",
   },
   itemContainer: {
